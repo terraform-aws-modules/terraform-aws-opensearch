@@ -22,10 +22,18 @@ locals {
 # Opensearch Module
 ################################################################################
 
-module "opensearch" {
+module "opensearch_complete" {
   source = "../.."
 
   create = false
+
+  tags = local.tags
+}
+
+module "opensearch_default" {
+  source = "../.."
+
+  domain_name = "${local.name}-default"
 
   tags = local.tags
 }
@@ -42,7 +50,7 @@ module "opensearch_disabled" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 3.0"
+  version = "~> 5.0"
 
   name = local.name
   cidr = local.vpc_cidr
@@ -50,10 +58,6 @@ module "vpc" {
   azs             = local.azs
   public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
-
-  enable_nat_gateway   = false
-  single_nat_gateway   = true
-  enable_dns_hostnames = true
 
   tags = local.tags
 }

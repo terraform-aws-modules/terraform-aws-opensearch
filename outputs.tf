@@ -21,3 +21,21 @@ output "domain_kibana_endpoint" {
   description = "Domain-specific endpoint for kibana without https scheme"
   value       = try(aws_opensearch_domain.this[0].kibana_endpoint, null)
 }
+
+################################################################################
+# CloudWatch Log Groups
+################################################################################
+
+output "cloudwatch_logs" {
+  description = "Map of CloudWatch log groups created and their attributes"
+  value       = aws_cloudwatch_log_group.this
+}
+
+################################################################################
+# Outbound Connections
+################################################################################
+
+output "outbound_connections" {
+  description = "Map of outbound connections created and their attributes"
+  value       = aws_opensearch_outbound_connection.this
+}

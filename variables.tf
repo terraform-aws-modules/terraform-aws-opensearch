@@ -23,19 +23,35 @@ variable "advanced_options" {
 variable "advanced_security_options" {
   description = "Configuration block for [fine-grained access control](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/fgac.html)"
   type        = any
-  default     = {}
+  default = {
+    enabled                = true
+    anonymous_auth_enabled = false
+  }
 }
 
 variable "auto_tune_options" {
   description = "Configuration block for the Auto-Tune options of the domain"
   type        = any
-  default     = {}
+  default = {
+    desired_state       = "ENABLED"
+    rollback_on_disable = "NO_ROLLBACK"
+  }
 }
 
 variable "cluster_config" {
   description = "Configuration block for the cluster of the domain"
   type        = any
-  default     = {}
+  default = {
+    dedicated_master_count   = 3
+    dedicated_master_enabled = true
+    dedicated_master_type    = "c5.large.search"
+    instance_count           = 3
+    instance_type            = "r5.large.search"
+    zone_awareness_enabled   = true
+    zone_awareness_config = {
+      availability_zone_count = 3
+    }
+  }
 }
 
 variable "cognito_options" {
@@ -47,7 +63,10 @@ variable "cognito_options" {
 variable "domain_endpoint_options" {
   description = "Configuration block for domain endpoint HTTP(S) related options"
   type        = any
-  default     = {}
+  default = {
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+  }
 }
 
 variable "domain_name" {
@@ -59,13 +78,19 @@ variable "domain_name" {
 variable "ebs_options" {
   description = "Configuration block for EBS related options, may be required based on chosen [instance size](https://aws.amazon.com/elasticsearch-service/pricing/)"
   type        = any
-  default     = {}
+  default = {
+    ebs_enabled = true
+    volume_size = 64
+    volume_type = "gp3"
+  }
 }
 
 variable "encrypt_at_rest" {
   description = "Configuration block for encrypting at rest"
   type        = any
-  default     = {}
+  default = {
+    enabled = true
+  }
 }
 
 variable "engine_version" {
@@ -77,19 +102,59 @@ variable "engine_version" {
 variable "log_publishing_options" {
   description = "Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log_type, within the same resource"
   type        = any
-  default     = []
+  default = [
+    { log_type = "INDEX_SLOW_LOGS" },
+    { log_type = "SEARCH_SLOW_LOGS" },
+    { log_type = "AUDIT_LOGS" }
+  ]
 }
 
 variable "node_to_node_encryption" {
   description = "Configuration block for node-to-node encryption options"
   type        = any
-  default     = {}
+  default = {
+    enabled = true
+  }
 }
 
 variable "vpc_options" {
   description = "Configuration block for VPC related options. Adding or removing this configuration forces a new resource ([documentation](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-vpc-limitations))"
   type        = any
   default     = {}
+}
+
+################################################################################
+# CloudWatch Log Group
+################################################################################
+
+variable "create_cloudwatch_log_groups" {
+  description = "Determines whether log groups are created"
+  type        = bool
+  default     = true
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  description = "Number of days to retain log events. Default retention - 90 days"
+  type        = number
+  default     = 90
+}
+
+variable "cloudwatch_log_group_kms_key_id" {
+  description = "If a KMS Key ARN is set, this key will be used to encrypt the corresponding log group. Please be sure that the KMS Key has an appropriate key policy (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html)"
+  type        = string
+  default     = null
+}
+
+variable "create_cloudwatch_log_resource_policy" {
+  description = "Determines whether a resource policy will be created for OpenSearch to log to CloudWatch"
+  type        = bool
+  default     = true
+}
+
+variable "cloudwatch_log_resource_policy_name" {
+  description = "Name of the resource policy for OpenSearch to log to CloudWatch"
+  type        = string
+  default     = null
 }
 
 ################################################################################
@@ -114,8 +179,73 @@ variable "access_policies" {
   default     = null
 }
 
-variable "access_pollicy_statements" {
+variable "access_policy_statements" {
   description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
   type        = any
+  default     = {}
+}
+
+################################################################################
+# SAML Options
+################################################################################
+
+variable "create_saml_options" {
+  description = "Determines whether SAML options will be created"
+  type        = bool
+  default     = false
+}
+
+variable "saml_options" {
+  description = "SAML authentication options for an AWS OpenSearch Domain"
+  type        = any
+  default     = {}
+}
+
+################################################################################
+# Outbound Connections
+################################################################################
+
+variable "outbound_connections" {
+  description = "Map of AWS OpenSearch outbound connections to create"
+  type        = any
+  default     = {}
+}
+################################################################################
+# Security Group
+################################################################################
+
+variable "create_security_group" {
+  description = "Determines whether the security group is created"
+  type        = bool
+  default     = true
+}
+
+variable "security_group_name" {
+  description = "Name to use on manged security group created"
+  type        = string
+  default     = null
+}
+
+variable "security_group_use_name_prefix" {
+  description = "Determines whether the security group name (`security_group_name`) is used as a prefix"
+  type        = bool
+  default     = true
+}
+
+variable "security_group_description" {
+  description = "Description of the security group created"
+  type        = string
+  default     = null
+}
+
+variable "security_group_rules" {
+  description = "Security group rules to add to the security group created"
+  type        = any
+  default     = {}
+}
+
+variable "security_group_tags" {
+  description = "A map of additional tags to add to the security group created"
+  type        = map(string)
   default     = {}
 }
