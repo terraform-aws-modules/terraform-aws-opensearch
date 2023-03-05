@@ -14,12 +14,6 @@ variable "tags" {
 # Domain
 ################################################################################
 
-variable "access_policies" {
-  description = "IAM policy document specifying the access policies for the domain"
-  type        = string
-  default     = null
-}
-
 variable "advanced_options" {
   description = "Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your Elasticsearch domain on every apply"
   type        = map(string)
@@ -94,6 +88,34 @@ variable "node_to_node_encryption" {
 
 variable "vpc_options" {
   description = "Configuration block for VPC related options. Adding or removing this configuration forces a new resource ([documentation](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-vpc-limitations))"
+  type        = any
+  default     = {}
+}
+
+################################################################################
+# Access Policy
+################################################################################
+
+variable "enable_access_policy" {
+  description = "Determines whether an access policy will be applied to the domain"
+  type        = bool
+  default     = true
+}
+
+variable "create_access_policy" {
+  description = "Determines whether an access policy will be created"
+  type        = bool
+  default     = true
+}
+
+variable "access_policies" {
+  description = "IAM policy document specifying the access policies for the domain. Required if `create_access_policy` is `false`"
+  type        = string
+  default     = null
+}
+
+variable "access_pollicy_statements" {
+  description = "A map of IAM policy [statements](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document#statement) for custom permission usage"
   type        = any
   default     = {}
 }
