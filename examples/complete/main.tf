@@ -2,14 +2,19 @@ provider "aws" {
   region = local.region
 }
 
+data "aws_availability_zones" "available" {}
+
 locals {
-  region = "us-east-1"
-  name   = "opensearch-ex-${replace(basename(path.cwd), "_", "-")}"
+  name   = basename(path.cwd)
+  region = "eu-west-1"
+
+  vpc_cidr = "10.0.0.0/16"
+  azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
-    Name       = local.name
     Example    = local.name
-    Repository = "https://github.com/terraform-aws-modules/terraform-aws-opensearch"
+    GithubRepo = "terraform-aws-opensearch"
+    GithubOrg  = "terraform-aws-modules"
   }
 }
 
@@ -40,15 +45,15 @@ module "vpc" {
   version = "~> 3.0"
 
   name = local.name
-  cidr = "10.99.0.0/18"
+  cidr = local.vpc_cidr
 
-  azs             = ["${local.region}a", "${local.region}b", "${local.region}c"]
-  public_subnets  = ["10.99.0.0/24", "10.99.1.0/24", "10.99.2.0/24"]
-  private_subnets = ["10.99.3.0/24", "10.99.4.0/24", "10.99.5.0/24"]
+  azs             = local.azs
+  public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
 
-  enable_nat_gateway      = false
-  single_nat_gateway      = true
-  map_public_ip_on_launch = false
+  enable_nat_gateway   = false
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
 
   tags = local.tags
 }
