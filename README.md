@@ -2,6 +2,8 @@
 
 Terraform module which creates AWS OpenSearch resources.
 
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
 ## Usage
 
 See [`examples`](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples) directory for working examples to reference:
@@ -29,13 +31,13 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.29 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.24 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.29 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.24 |
 
 ## Modules
 
