@@ -1,14 +1,22 @@
-data "aws_region" "current" {}
-data "aws_partition" "current" {}
-data "aws_caller_identity" "current" {}
+data "aws_region" "current" {
+  count = var.create ? 1 : 0
+}
+data "aws_partition" "current" {
+  count = var.create ? 1 : 0
+}
+data "aws_caller_identity" "current" {
+  count = var.create ? 1 : 0
+}
 data "aws_iam_session_context" "current" {
-  arn = data.aws_caller_identity.current.arn
+  count = var.create ? 1 : 0
+
+  arn = data.aws_caller_identity.current[0].arn
 }
 
 locals {
-  account_id = data.aws_caller_identity.current.account_id
-  partition  = data.aws_partition.current.partition
-  region     = data.aws_region.current.name
+  account_id = try(data.aws_caller_identity.current[0].account_id, "")
+  partition  = try(data.aws_partition.current[0].partition, "")
+  region     = try(data.aws_region.current[0].name, "")
 
   static_domain_arn = "arn:${local.partition}:es:${local.region}:${local.account_id}:domain/${var.domain_name}"
 
@@ -38,7 +46,7 @@ resource "aws_opensearch_domain" "this" {
         for_each = try([advanced_security_options.value.master_user_options], [{}])
 
         content {
-          master_user_arn      = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_arn, data.aws_iam_session_context.current.issuer_arn) : null
+          master_user_arn      = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_arn, data.aws_iam_session_context.current[0].issuer_arn) : null
           master_user_name     = try(master_user_options.value.master_user_name, null) == null ? try(master_user_options.value.master_user_name, null) : null
           master_user_password = try(master_user_options.value.master_user_password, null) == null ? try(master_user_options.value.master_user_password, null) : null
         }

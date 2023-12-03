@@ -68,3 +68,17 @@ output "access_policy" {
   description = "The JSON policy document of the access policy"
   value       = try(aws_opensearchserverless_access_policy.this[0].policy, null)
 }
+
+################################################################################
+# Lifecycle Policy
+################################################################################
+
+output "lifecycle_policy_version" {
+  description = "The version of the lifecycle policy"
+  value       = try(aws_opensearchserverless_lifecycle_policy.this[0].policy_version, null)
+}
+
+output "lifecycle_policy" {
+  description = "The JSON policy document of the lifecycle policy"
+  value       = try(aws_opensearchserverless_lifecycle_policy.this[0].policy, null)
+}

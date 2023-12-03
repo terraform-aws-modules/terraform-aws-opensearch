@@ -1,4 +1,4 @@
-# Wrapper for module: `modules/serverless`
+# Wrapper for module: `modules/collection`
 
 The configuration in this directory contains an implementation of a single module wrapper pattern, which allows managing several copies of a module in places where using the native Terraform 0.13+ `for_each` feature is not feasible (e.g., with Terragrunt).
 
@@ -12,9 +12,9 @@ This wrapper does not implement any extra functionality.
 
 ```hcl
 terraform {
-  source = "tfr:///terraform-aws-modules/opensearch/aws//wrappers/serverless"
+  source = "tfr:///terraform-aws-modules/opensearch/aws//wrappers/collection"
   # Alternative source:
-  # source = "git::git@github.com:terraform-aws-modules/terraform-aws-opensearch.git//wrappers/serverless?ref=master"
+  # source = "git::git@github.com:terraform-aws-modules/terraform-aws-opensearch.git//wrappers/collection?ref=master"
 }
 
 inputs = {
@@ -42,7 +42,7 @@ inputs = {
 
 ```hcl
 module "wrapper" {
-  source = "terraform-aws-modules/opensearch/aws//wrappers/serverless"
+  source = "terraform-aws-modules/opensearch/aws//wrappers/collection"
 
   defaults = { # Default values
     create = true

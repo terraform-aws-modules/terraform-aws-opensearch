@@ -22,16 +22,40 @@ locals {
 # OpenSearch Module
 ################################################################################
 
-module "opensearch" {
-  source = "../.."
+module "opensearch_collection_public" {
+  source = "../../modules/collection"
 
-  create = false
+  name        = "${local.name}-public"
+  description = "Example public OpenSearch Serverless collection"
+  type        = "SEARCH"
+
+  create_access_policy  = true
+  create_network_policy = true
 
   tags = local.tags
 }
 
-module "opensearch_disabled" {
-  source = "../.."
+module "opensearch_collection_private" {
+  source = "../../modules/collection"
+
+  name        = "${local.name}-private"
+  description = "Example private OpenSearch Serverless collection"
+  type        = "SEARCH"
+
+  create_access_policy  = true
+  create_network_policy = true
+  network_policy = {
+    AllowFromPublic = false
+    SourceVPCEs = [
+      aws_opensearchserverless_vpc_endpoint.example.id
+    ]
+  }
+
+  tags = local.tags
+}
+
+module "opensearch_collection_disabled" {
+  source = "../../modules/collection"
 
   create = false
 }
@@ -52,4 +76,10 @@ module "vpc" {
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
 
   tags = local.tags
+}
+
+resource "aws_opensearchserverless_vpc_endpoint" "example" {
+  name       = local.name
+  subnet_ids = module.vpc.private_subnets
+  vpc_id     = module.vpc.vpc_id
 }
