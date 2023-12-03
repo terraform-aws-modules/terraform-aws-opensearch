@@ -25,6 +25,7 @@ locals {
 module "opensearch" {
   source = "../.."
 
+  create = false
 
   tags = local.tags
 }

@@ -42,15 +42,7 @@ variable "cluster_config" {
   description = "Configuration block for the cluster of the domain"
   type        = any
   default = {
-    dedicated_master_count   = 3
     dedicated_master_enabled = true
-    dedicated_master_type    = "c5.large.search"
-    instance_count           = 3
-    instance_type            = "r5.large.search"
-    zone_awareness_enabled   = true
-    zone_awareness_config = {
-      availability_zone_count = 3
-    }
   }
 }
 
@@ -96,7 +88,7 @@ variable "encrypt_at_rest" {
 variable "engine_version" {
   description = "Version of the OpenSearch engine to use"
   type        = string
-  default     = "OpenSearch_2.3"
+  default     = null
 }
 
 variable "log_publishing_options" {
@@ -117,6 +109,25 @@ variable "node_to_node_encryption" {
   }
 }
 
+variable "off_peak_window_options" {
+  description = "Configuration to add Off Peak update options"
+  type        = any
+  default = {
+    enabled = true
+    off_peak_window = {
+      hours = 7
+    }
+  }
+}
+
+variable "software_update_options" {
+  description = "Software update options for the domain"
+  type        = any
+  default = {
+    auto_software_update_enabled = true
+  }
+}
+
 variable "vpc_options" {
   description = "Configuration block for VPC related options. Adding or removing this configuration forces a new resource ([documentation](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-vpc-limitations))"
   type        = any
@@ -124,37 +135,23 @@ variable "vpc_options" {
 }
 
 ################################################################################
-# CloudWatch Log Group
+# Package Association(s)
 ################################################################################
 
-variable "create_cloudwatch_log_groups" {
-  description = "Determines whether log groups are created"
-  type        = bool
-  default     = true
+variable "package_associations" {
+  description = "Map of package association IDs to associate with the domain"
+  type        = map(string)
+  default     = {}
 }
 
-variable "cloudwatch_log_group_retention_in_days" {
-  description = "Number of days to retain log events. Default retention - 90 days"
-  type        = number
-  default     = 90
-}
+################################################################################
+# VPC Endpoint(s)
+################################################################################
 
-variable "cloudwatch_log_group_kms_key_id" {
-  description = "If a KMS Key ARN is set, this key will be used to encrypt the corresponding log group. Please be sure that the KMS Key has an appropriate key policy (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html)"
-  type        = string
-  default     = null
-}
-
-variable "create_cloudwatch_log_resource_policy" {
-  description = "Determines whether a resource policy will be created for OpenSearch to log to CloudWatch"
-  type        = bool
-  default     = true
-}
-
-variable "cloudwatch_log_resource_policy_name" {
-  description = "Name of the resource policy for OpenSearch to log to CloudWatch"
-  type        = string
-  default     = null
+variable "vpc_endpoints" {
+  description = "Map of VPC endpoints to create for the domain"
+  type        = any
+  default     = {}
 }
 
 ################################################################################
@@ -185,6 +182,18 @@ variable "access_policy_statements" {
   default     = {}
 }
 
+variable "access_policy_source_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. Statements must have unique `sid`s"
+  type        = list(string)
+  default     = []
+}
+
+variable "access_policy_override_policy_documents" {
+  description = "List of IAM policy documents that are merged together into the exported document. In merging, statements with non-blank `sid`s will override statements with the same `sid`"
+  type        = list(string)
+  default     = []
+}
+
 ################################################################################
 # SAML Options
 ################################################################################
@@ -210,18 +219,53 @@ variable "outbound_connections" {
   type        = any
   default     = {}
 }
+
+################################################################################
+# CloudWatch Log Group
+################################################################################
+
+variable "create_cloudwatch_log_groups" {
+  description = "Determines whether log groups are created"
+  type        = bool
+  default     = true
+}
+
+variable "cloudwatch_log_group_retention_in_days" {
+  description = "Number of days to retain log events"
+  type        = number
+  default     = 60
+}
+
+variable "cloudwatch_log_group_kms_key_id" {
+  description = "If a KMS Key ARN is set, this key will be used to encrypt the corresponding log group. Please be sure that the KMS Key has an appropriate key policy (https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/encrypt-log-data-kms.html)"
+  type        = string
+  default     = null
+}
+
+variable "create_cloudwatch_log_resource_policy" {
+  description = "Determines whether a resource policy will be created for OpenSearch to log to CloudWatch"
+  type        = bool
+  default     = true
+}
+
+variable "cloudwatch_log_resource_policy_name" {
+  description = "Name of the resource policy for OpenSearch to log to CloudWatch"
+  type        = string
+  default     = null
+}
+
 ################################################################################
 # Security Group
 ################################################################################
 
 variable "create_security_group" {
-  description = "Determines whether the security group is created"
+  description = "Determines if a security group is created"
   type        = bool
   default     = true
 }
 
 variable "security_group_name" {
-  description = "Name to use on manged security group created"
+  description = "Name to use on security group created"
   type        = string
   default     = null
 }
@@ -239,7 +283,7 @@ variable "security_group_description" {
 }
 
 variable "security_group_rules" {
-  description = "Security group rules to add to the security group created"
+  description = "Security group ingress and egress rules to add to the security group created"
   type        = any
   default     = {}
 }

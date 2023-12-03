@@ -39,8 +39,8 @@ resource "aws_opensearch_domain" "this" {
 
         content {
           master_user_arn      = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_arn, data.aws_iam_session_context.current.issuer_arn) : null
-          master_user_name     = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_name, null) : null
-          master_user_password = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_password, null) : null
+          master_user_name     = try(master_user_options.value.master_user_name, null) == null ? try(master_user_options.value.master_user_name, null) : null
+          master_user_password = try(master_user_options.value.master_user_password, null) == null ? try(master_user_options.value.master_user_password, null) : null
         }
       }
     }
@@ -59,7 +59,7 @@ resource "aws_opensearch_domain" "this" {
           cron_expression_for_recurrence = maintenance_schedule.value.cron_expression_for_recurrence
 
           dynamic "duration" {
-            for_each = maintenance_schedule.value.duration
+            for_each = [maintenance_schedule.value.duration]
 
             content {
               unit  = duration.value.unit
@@ -80,24 +80,25 @@ resource "aws_opensearch_domain" "this" {
 
     content {
       dynamic "cold_storage_options" {
-        for_each = try(cluster_config.value.cold_storage_options, [])
+        for_each = try([cluster_config.value.cold_storage_options], [])
 
         content {
           enabled = try(cold_storage_options.value.enabled, null)
         }
       }
 
-      dedicated_master_count   = try(cluster_config.value.dedicated_master_count, 3)
-      dedicated_master_enabled = try(cluster_config.value.dedicated_master_enabled, true)
-      dedicated_master_type    = try(cluster_config.value.dedicated_master_type, null)
-      instance_count           = try(cluster_config.value.instance_count, 3)
-      instance_type            = try(cluster_config.value.instance_type, null)
-      warm_count               = try(cluster_config.value.warm_count, null)
-      warm_enabled             = try(cluster_config.value.warm_enabled, null)
-      warm_type                = try(cluster_config.value.warm_type, null)
+      dedicated_master_count        = try(cluster_config.value.dedicated_master_count, 3)
+      dedicated_master_enabled      = try(cluster_config.value.dedicated_master_enabled, true)
+      dedicated_master_type         = try(cluster_config.value.dedicated_master_type, "c6g.large.search")
+      instance_count                = try(cluster_config.value.instance_count, 3)
+      instance_type                 = try(cluster_config.value.instance_type, "r6g.large.search")
+      multi_az_with_standby_enabled = try(cluster_config.value.multi_az_with_standby_enabled, null)
+      warm_count                    = try(cluster_config.value.warm_count, null)
+      warm_enabled                  = try(cluster_config.value.warm_enabled, null)
+      warm_type                     = try(cluster_config.value.warm_type, null)
 
       dynamic "zone_awareness_config" {
-        for_each = try([cluster_config.value.zone_awareness_config], [])
+        for_each = try([cluster_config.value.zone_awareness_config], [{}])
 
         content {
           availability_zone_count = try(zone_awareness_config.value.availability_zone_count, null)
@@ -174,11 +175,42 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  dynamic "off_peak_window_options" {
+    for_each = length(var.off_peak_window_options) > 0 ? [var.off_peak_window_options] : []
+
+    content {
+      enabled = try(off_peak_window_options.value.enabled, true)
+
+      dynamic "off_peak_window" {
+        for_each = try([off_peak_window_options.value.off_peak_window], [])
+
+        content {
+          dynamic "window_start_time" {
+            for_each = try([off_peak_window.value.window_start_time], [])
+
+            content {
+              hours   = try(window_start_time.value.hours, null)
+              minutes = try(window_start_time.value.minutes, null)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  dynamic "software_update_options" {
+    for_each = length(var.software_update_options) > 0 ? [var.software_update_options] : []
+
+    content {
+      auto_software_update_enabled = try(software_update_options.value.auto_software_update_enabled, try)
+    }
+  }
+
   dynamic "vpc_options" {
     for_each = length(var.vpc_options) > 0 ? [var.vpc_options] : []
 
     content {
-      security_group_ids = concat(try(vpc_options.value.security_group_ids, []), aws_security_group.this[0].id)
+      security_group_ids = concat(try(vpc_options.value.security_group_ids, []), aws_security_group.this[*].id)
       subnet_ids         = try(vpc_options.value.subnet_ids, null)
     }
   }
@@ -192,61 +224,29 @@ resource "aws_opensearch_domain" "this" {
 }
 
 ################################################################################
-# Cloudwatch Log Group
+# Package Association(s)
 ################################################################################
 
-locals {
-  create_cloudwatch_log_groups = var.create && var.create_cloudwatch_log_groups
+resource "aws_opensearch_package_association" "this" {
+  for_each = { for k, v in var.package_associations : k => v if var.create }
+
+  package_id  = try(each.value.package_id, each.key)
+  domain_name = aws_opensearch_domain.this[0].domain_name
 }
 
-resource "aws_cloudwatch_log_group" "this" {
-  for_each = { for opt in var.log_publishing_options : opt.log_type => opt if try(opt.enabled, true) && local.create_cloudwatch_log_groups }
+################################################################################
+# VPC Endpoint(s)
+################################################################################
 
-  name              = try(each.value.log_group_name, "/aws/opensearch/${var.domain_name}/${each.key}")
-  retention_in_days = try(each.value.log_group_retention_in_days, var.cloudwatch_log_group_retention_in_days)
-  kms_key_id        = try(each.value.log_group_kms_key_id, var.cloudwatch_log_group_kms_key_id)
+resource "aws_opensearch_vpc_endpoint" "this" {
+  for_each = { for k, v in var.vpc_endpoints : k => v if var.create }
 
-  tags = merge(local.tags, try(each.value.log_group_tags, {}))
-}
+  domain_arn = aws_opensearch_domain.this[0].arn
 
-data "aws_iam_policy_document" "cloudwatch" {
-  count = local.create_cloudwatch_log_groups && var.create_cloudwatch_log_resource_policy ? 1 : 0
-
-  statement {
-    actions = [
-      "logs:CreateLogStream",
-      "logs:PutLogEvents",
-      "logs:PutLogEventsBatch",
-    ]
-
-    # https://github.com/hashicorp/terraform-provider-aws/issues/14497
-    # resources = coalescelist([for log in aws_cloudwatch_log_group.this : "${log.arn}:*"], ["arn:${local.partition}:logs:*"])
-    resources = ["arn:${local.partition}:logs:*"]
-
-    principals {
-      identifiers = ["es.${data.aws_partition.current.dns_suffix}"]
-      type        = "Service"
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "aws:SourceAccount"
-      values   = [local.account_id]
-    }
-
-    condition {
-      test     = "ArnLike"
-      variable = "aws:SourceArn"
-      values   = [local.static_domain_arn]
-    }
+  vpc_options {
+    security_group_ids = try(each.value.security_group_ids, null)
+    subnet_ids         = each.value.subnet_ids
   }
-}
-
-resource "aws_cloudwatch_log_resource_policy" "this" {
-  count = local.create_cloudwatch_log_groups && var.create_cloudwatch_log_resource_policy ? 1 : 0
-
-  policy_document = data.aws_iam_policy_document.cloudwatch[0].json
-  policy_name     = coalesce(var.cloudwatch_log_resource_policy_name, "opensearch-${var.domain_name}")
 }
 
 ################################################################################
@@ -254,7 +254,7 @@ resource "aws_cloudwatch_log_resource_policy" "this" {
 ################################################################################
 
 locals {
-  create_access_policy = var.create && var.create_access_policy && length(var.access_policy_statements) > 0
+  create_access_policy = var.create && var.create_access_policy && (length(var.access_policy_statements) > 0 || length(var.access_policy_source_policy_documents) > 0 || length(var.access_policy_override_policy_documents) > 0)
 }
 
 resource "aws_opensearch_domain_policy" "this" {
@@ -266,6 +266,9 @@ resource "aws_opensearch_domain_policy" "this" {
 
 data "aws_iam_policy_document" "this" {
   count = local.create_access_policy ? 1 : 0
+
+  source_policy_documents   = var.access_policy_source_policy_documents
+  override_policy_documents = var.access_policy_override_policy_documents
 
   dynamic "statement" {
     for_each = var.access_policy_statements
@@ -351,7 +354,23 @@ resource "aws_opensearch_domain_saml_options" "this" {
 resource "aws_opensearch_outbound_connection" "this" {
   for_each = { for k, v in var.outbound_connections : k => v if var.create }
 
-  connection_alias = try(each.value.connection_alias, each.key)
+  accept_connection = try(each.value.accept_connection, null)
+  connection_alias  = try(each.value.connection_alias, each.key)
+  connection_mode   = each.value.connection_mode
+
+  dynamic "connection_properties" {
+    for_each = try([each.value.connection_properties], [])
+
+    content {
+      dynamic "cross_cluster_search" {
+        for_each = try([connection_properties.value.cross_cluster_search], [])
+
+        content {
+          skip_unavailable = try(cross_cluster_search.value.skip_unavailable, null)
+        }
+      }
+    }
+  }
 
   local_domain_info {
     owner_id    = try(each.value.local_domain_info.owner_id, local.account_id)
@@ -364,6 +383,64 @@ resource "aws_opensearch_outbound_connection" "this" {
     region      = each.value.remote_domain_info.region
     domain_name = each.value.remote_domain_info.domain_name
   }
+}
+
+################################################################################
+# Cloudwatch Log Group
+################################################################################
+
+locals {
+  create_cloudwatch_log_groups = var.create && var.create_cloudwatch_log_groups
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  for_each = { for opt in var.log_publishing_options : opt.log_type => opt if try(opt.enabled, true) && local.create_cloudwatch_log_groups }
+
+  name              = try(each.value.log_group_name, "/aws/opensearch/${var.domain_name}/${each.key}")
+  retention_in_days = try(each.value.log_group_retention_in_days, var.cloudwatch_log_group_retention_in_days)
+  kms_key_id        = try(each.value.log_group_kms_key_id, var.cloudwatch_log_group_kms_key_id)
+
+  tags = merge(local.tags, try(each.value.log_group_tags, {}))
+}
+
+data "aws_iam_policy_document" "cloudwatch" {
+  count = local.create_cloudwatch_log_groups && var.create_cloudwatch_log_resource_policy ? 1 : 0
+
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:PutLogEventsBatch",
+    ]
+
+    # https://github.com/hashicorp/terraform-provider-aws/issues/14497
+    # resources = coalescelist([for log in aws_cloudwatch_log_group.this : "${log.arn}:*"], ["arn:${local.partition}:logs:*"])
+    resources = ["arn:${local.partition}:logs:*"]
+
+    principals {
+      identifiers = ["es.amazonaws.com"]
+      type        = "Service"
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [local.account_id]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = [local.static_domain_arn]
+    }
+  }
+}
+
+resource "aws_cloudwatch_log_resource_policy" "this" {
+  count = local.create_cloudwatch_log_groups && var.create_cloudwatch_log_resource_policy ? 1 : 0
+
+  policy_document = data.aws_iam_policy_document.cloudwatch[0].json
+  policy_name     = coalesce(var.cloudwatch_log_resource_policy_name, "opensearch-${var.domain_name}")
 }
 
 ################################################################################
@@ -390,34 +467,47 @@ resource "aws_security_group" "this" {
   vpc_id                 = data.aws_subnet.this[0].vpc_id
   revoke_rules_on_delete = true
 
-  tags = merge(
-    local.tags,
-    var.security_group_tags,
-    {
-      "Name" = local.security_group_name
-    },
-  )
+  tags = merge(local.tags, var.security_group_tags)
 
   lifecycle {
     create_before_destroy = true
   }
 }
 
-resource "aws_security_group_rule" "this" {
-  for_each = { for k, v in var.security_group_rules : k => v if local.create_security_group }
+resource "aws_vpc_security_group_ingress_rule" "this" {
+  for_each = { for k, v in var.security_group_rules : k => v if local.create_security_group && try(v.type, "ingress") == "ingress" }
 
   # Required
   security_group_id = aws_security_group.this[0].id
-  protocol          = try(each.value.protocol, "tcp")
-  from_port         = try(each.value.from_port, 443)
-  to_port           = try(each.value.to_port, 443)
-  type              = try(each.value.type, "ingress")
+  ip_protocol       = try(each.value.ip_protocol, "tcp")
 
   # Optional
-  description              = lookup(each.value, "description", null)
-  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
-  ipv6_cidr_blocks         = lookup(each.value, "ipv6_cidr_blocks", null)
-  prefix_list_ids          = lookup(each.value, "prefix_list_ids", null)
-  self                     = lookup(each.value, "self", null)
-  source_security_group_id = lookup(each.value, "source_security_group_id", null)
+  cidr_ipv4                    = lookup(each.value, "cidr_ipv4", null)
+  cidr_ipv6                    = lookup(each.value, "cidr_ipv6", null)
+  description                  = try(each.value.description, null)
+  from_port                    = try(each.value.from_port, 443)
+  prefix_list_id               = lookup(each.value, "prefix_list_id", null)
+  referenced_security_group_id = lookup(each.value, "referenced_security_group_id", null)
+  to_port                      = try(each.value.to_port, 443)
+
+  tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
+}
+
+resource "aws_vpc_security_group_egress_rule" "this" {
+  for_each = { for k, v in var.security_group_rules : k => v if local.create_security_group && try(v.type, "ingress") == "egress" }
+
+  # Required
+  security_group_id = aws_security_group.this[0].id
+  ip_protocol       = try(each.value.ip_protocol, "tcp")
+
+  # Optional
+  cidr_ipv4                    = lookup(each.value, "cidr_ipv4", null)
+  cidr_ipv6                    = lookup(each.value, "cidr_ipv6", null)
+  description                  = try(each.value.description, null)
+  from_port                    = try(each.value.from_port, null)
+  prefix_list_id               = lookup(each.value, "prefix_list_id", null)
+  referenced_security_group_id = lookup(each.value, "referenced_security_group_id", null)
+  to_port                      = try(each.value.to_port, null)
+
+  tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
 }

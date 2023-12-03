@@ -1,3 +1,7 @@
+locals {
+  tags = merge(var.tags, { terraform-aws-modules = "opensearch" })
+}
+
 ################################################################################
 # Collection
 ################################################################################
@@ -9,7 +13,7 @@ resource "aws_opensearchserverless_collection" "this" {
   name        = var.name
   type        = var.type
 
-  tags = var.tags
+  tags = local.tags
 
   timeouts {
     create = try(var.timeouts.delete, null)
