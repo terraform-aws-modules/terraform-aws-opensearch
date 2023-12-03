@@ -39,7 +39,7 @@ variable "timeouts" {
 }
 
 ################################################################################
-# Security Policy - Encryption
+# Encryption Policy
 ################################################################################
 
 variable "create_encryption_policy" {
@@ -48,26 +48,26 @@ variable "create_encryption_policy" {
   default     = true
 }
 
-variable "encryption_security_policy_description" {
-  description = "Description of the encryption security policy"
+variable "encryption_policy_description" {
+  description = "Description of the encryption policy"
   type        = string
   default     = null
 }
 
-variable "encryption_security_policy_name" {
-  description = "Name of the encryption security policy"
+variable "encryption_policy_name" {
+  description = "Name of the encryption policy"
   type        = string
   default     = null
 }
 
-variable "encryption_security_policy" {
-  description = "Encryption security policy to apply to the collection - this is merged with the default policy provided"
+variable "encryption_policy" {
+  description = "Encryption policy to apply to the collection"
   type        = any
   default     = {}
 }
 
 ################################################################################
-# Security Policy - Network
+# Network Policy
 ################################################################################
 
 variable "create_network_policy" {
@@ -76,20 +76,48 @@ variable "create_network_policy" {
   default     = true
 }
 
-variable "network_security_policy_description" {
-  description = "Description of the network security policy"
+variable "network_policy_description" {
+  description = "Description of the network policy"
   type        = string
   default     = null
 }
 
-variable "network_security_policy_name" {
-  description = "Name of the network security policy"
+variable "network_policy_name" {
+  description = "Name of the network policy"
   type        = string
   default     = null
 }
 
-variable "network_security_policy" {
-  description = "Network security policy to apply to the collection - this is merged with the default policy provided"
+variable "network_policy" {
+  description = "Network policy to apply to the collection"
+  type        = any
+  default     = {}
+}
+
+################################################################################
+# Access Policy
+################################################################################
+
+variable "create_access_policy" {
+  description = "Determines whether an access policy will be created"
+  type        = bool
+  default     = true
+}
+
+variable "access_policy_description" {
+  description = "Description of the access policy"
+  type        = string
+  default     = null
+}
+
+variable "access_policy_name" {
+  description = "Name of the access policy"
+  type        = string
+  default     = null
+}
+
+variable "access_policy" {
+  description = "access policy to apply to the collection"
   type        = any
   default     = {}
 }

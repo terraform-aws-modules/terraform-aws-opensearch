@@ -32,21 +32,10 @@ resource "aws_opensearchserverless_collection" "this" {
 resource "aws_opensearchserverless_security_policy" "encryption" {
   count = var.create && var.create_encryption_policy ? 1 : 0
 
-  description = coalesce(var.encryption_security_policy_description, "Encryption policy for ${var.name} collection")
-  name        = coalesce(var.encryption_security_policy_name, "${var.name}-encryption")
-  policy = jsonencode(merge(
-    {
-      Rules = [
-        {
-          Resource     = ["collection/${var.name}"]
-          ResourceType = "collection"
-        }
-      ]
-      AWSOwnedKey = true
-    },
-    var.encryption_security_policy
-  ))
-  type = "encryption"
+  description = coalesce(var.encryption_policy_description, "Encryption policy for ${var.name} collection")
+  name        = coalesce(var.encryption_policy_name, "${var.name}-encryption")
+  policy      = var.encryption_policy
+  type        = "encryption"
 }
 
 ################################################################################
@@ -56,19 +45,21 @@ resource "aws_opensearchserverless_security_policy" "encryption" {
 resource "aws_opensearchserverless_security_policy" "network" {
   count = var.create && var.create_network_policy ? 1 : 0
 
-  description = coalesce(var.network_security_policy_description, "Newtwork policy for ${var.name} collection")
-  name        = coalesce(var.network_security_policy_name, "${var.name}-network")
-  policy = jsonencode(merge(
-    {
-      Rules = [
-        {
-          Resource     = ["collection/${var.name}"]
-          ResourceType = "collection"
-        }
-      ]
-      AllowFromPublic = true
-    },
-    var.network_security_policy
-  ))
-  type = "network"
+  description = coalesce(var.network_policy_description, "Newtwork policy for ${var.name} collection")
+  name        = coalesce(var.network_policy_name, "${var.name}-network")
+  policy      = var.network_policy
+  type        = "network"
+}
+
+################################################################################
+# Access Policy
+################################################################################
+
+resource "aws_opensearchserverless_access_policy" "this" {
+  count = var.create && var.create_access_policy ? 1 : 0
+
+  description = coalesce(var.access_policy_description, "Access policy for ${var.name} collection")
+  name        = coalesce(var.access_policy_name, "${var.name}-access")
+  policy      = var.access_policy
+  type        = "data"
 }

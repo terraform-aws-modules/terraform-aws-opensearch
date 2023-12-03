@@ -28,29 +28,43 @@ output "id" {
 }
 
 ################################################################################
-# Security Policy - Encryption
+# Encryption Policy
 ################################################################################
 
-output "encryption_security_policy_version" {
-  description = "The version of the security policy"
+output "encryption_policy_version" {
+  description = "The version of the encryption policy"
   value       = try(aws_opensearchserverless_security_policy.encryption[0].policy_version, null)
 }
 
-output "encryption_security_policy" {
-  description = "The JSON policy document of the security policy"
+output "encryption_policy" {
+  description = "The JSON policy document of the encryption policy"
   value       = try(aws_opensearchserverless_security_policy.encryption[0].policy, null)
 }
 
 ################################################################################
-# Security Policy - Network
+# Network Policy
 ################################################################################
 
-output "network_security_policy_version" {
-  description = "The version of the security policy"
+output "network_policy_version" {
+  description = "The version of the network policy"
   value       = try(aws_opensearchserverless_security_policy.network[0].policy_version, null)
 }
 
-output "network_security_policy" {
-  description = "The JSON policy document of the security policy"
+output "network_policy" {
+  description = "The JSON policy document of the network policy"
   value       = try(aws_opensearchserverless_security_policy.network[0].policy, null)
+}
+
+################################################################################
+# Access Policy
+################################################################################
+
+output "access_policy_version" {
+  description = "The version of the access policy"
+  value       = try(aws_opensearchserverless_access_policy.this[0].policy_version, null)
+}
+
+output "access_policy" {
+  description = "The JSON policy document of the access policy"
+  value       = try(aws_opensearchserverless_access_policy.this[0].policy, null)
 }
