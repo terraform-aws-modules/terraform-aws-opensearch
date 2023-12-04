@@ -4,6 +4,12 @@ Configuration in this directory creates an AWS OpenSEarch domain and resources
 
 ## Usage
 
+Ensure you have a service-linked role for OpenSearch before deploying the example. You can use the following command to create one:
+
+```bash
+aws iam create-service-linked-role --aws-service-name es.amazonaws.com
+```
+
 To run this example you need to execute:
 
 ```bash

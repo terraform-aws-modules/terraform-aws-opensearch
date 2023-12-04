@@ -47,7 +47,6 @@ module "wrapper" {
   log_publishing_options = try(each.value.log_publishing_options, var.defaults.log_publishing_options, [
     { log_type = "INDEX_SLOW_LOGS" },
     { log_type = "SEARCH_SLOW_LOGS" },
-    { log_type = "AUDIT_LOGS" }
   ])
   node_to_node_encryption = try(each.value.node_to_node_encryption, var.defaults.node_to_node_encryption, {
     enabled = true

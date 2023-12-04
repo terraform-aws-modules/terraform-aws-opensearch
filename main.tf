@@ -9,8 +9,7 @@ data "aws_caller_identity" "current" {
 }
 data "aws_iam_session_context" "current" {
   count = var.create ? 1 : 0
-
-  arn = data.aws_caller_identity.current[0].arn
+  arn   = data.aws_caller_identity.current[0].arn
 }
 
 locals {
@@ -210,7 +209,7 @@ resource "aws_opensearch_domain" "this" {
     for_each = length(var.software_update_options) > 0 ? [var.software_update_options] : []
 
     content {
-      auto_software_update_enabled = try(software_update_options.value.auto_software_update_enabled, try)
+      auto_software_update_enabled = try(software_update_options.value.auto_software_update_enabled, true)
     }
   }
 
@@ -224,11 +223,6 @@ resource "aws_opensearch_domain" "this" {
   }
 
   tags = local.tags
-
-  depends_on = [
-    # https://github.com/hashicorp/terraform-provider-aws/issues/14497
-    aws_opensearch_domain_policy.this,
-  ]
 }
 
 ################################################################################
@@ -287,7 +281,7 @@ data "aws_iam_policy_document" "this" {
       not_actions = try(statement.value.not_actions, null)
       effect      = try(statement.value.effect, null)
       resources = try(statement.value.resources,
-        [for path in try(statement.value.resource_paths, ["*"]) : "${local.static_domain_arn}/${path}"]
+        [for path in try(statement.value.resource_paths, ["*"]) : "${aws_opensearch_domain.this[0].arn}/${path}"]
       )
       not_resources = try(statement.value.not_resources, null)
 

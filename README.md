@@ -12,6 +12,118 @@ See [`examples`](https://github.com/terraform-aws-modules/terraform-aws-opensear
 module "opensearch" {
   source = "terraform-aws-modules/opensearch/aws"
 
+
+  # Domain
+  advanced_options = {
+    "rest.action.multi.allow_explicit_index" = "true"
+  }
+
+  advanced_security_options = {
+    enabled                        = false
+    anonymous_auth_enabled         = true
+    internal_user_database_enabled = true
+
+    master_user_options = {
+      master_user_name     = "example"
+      master_user_password = "Barbarbarbar1!"
+    }
+  }
+
+  auto_tune_options = {
+    desired_state = "ENABLED"
+
+    maintenance_schedule = [
+      {
+        start_at                       = "2028-05-13T07:44:12Z"
+        cron_expression_for_recurrence = "cron(0 0 ? * 1 *)"
+        duration = {
+          value = "2"
+          unit  = "HOURS"
+        }
+      }
+    ]
+
+    rollback_on_disable = "NO_ROLLBACK"
+  }
+
+  cluster_config = {
+    instance_count           = 3
+    dedicated_master_enabled = true
+    dedicated_master_type    = "c6g.large.search"
+    instance_type            = "r6g.large.search"
+
+    zone_awareness_config = {
+      availability_zone_count = 3
+    }
+
+    zone_awareness_enabled = true
+  }
+
+  domain_endpoint_options = {
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+  }
+
+  domain_name = local.name
+
+  ebs_options = {
+    ebs_enabled = true
+    iops        = 3000
+    throughput  = 125
+    volume_type = "gp3"
+    volume_size = 20
+  }
+
+  encrypt_at_rest = {
+    enabled = true
+  }
+
+  engine_version = "OpenSearch_2.11"
+
+  log_publishing_options = [
+    { log_type = "INDEX_SLOW_LOGS" },
+    { log_type = "SEARCH_SLOW_LOGS" },
+  ]
+
+  node_to_node_encryption = {
+    enabled = true
+  }
+
+  software_update_options = {
+    auto_software_update_enabled = true
+  }
+
+  vpc_options = {
+    subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
+  }
+
+  # VPC endpoint
+  vpc_endpoints = {
+    one = {
+      subnet_ids = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
+    }
+  }
+
+  # Access policy
+  access_policy_statements = [
+    {
+      effect = "Allow"
+
+      principals = [{
+        type        = "*"
+        identifiers = ["*"]
+      }]
+
+      actions = ["es:*"]
+
+      condition = [{
+        test     = "IpAddress"
+        variable = "aws:SourceIp"
+        values   = ["127.0.0.1/32"]
+      }]
+    }
+  ]
+
   tags = {
     Terraform   = "true"
     Environment = "dev"
@@ -24,7 +136,7 @@ module "opensearch" {
 Examples codified under the [`examples`](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples) are intended to give users references for how to use the module(s) as well as testing/validating changes to the source code of the module. If contributing to the project, please be sure to make any appropriate updates to the relevant examples to allow maintainers to test your changes and to keep the examples up to date for users. Thank you!
 
 - [Complete](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples/complete)
-- [Serverless](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples/serverless)
+- [Serverless](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples/collection)
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -95,7 +207,7 @@ No modules.
 | <a name="input_enable_access_policy"></a> [enable\_access\_policy](#input\_enable\_access\_policy) | Determines whether an access policy will be applied to the domain | `bool` | `true` | no |
 | <a name="input_encrypt_at_rest"></a> [encrypt\_at\_rest](#input\_encrypt\_at\_rest) | Configuration block for encrypting at rest | `any` | <pre>{<br>  "enabled": true<br>}</pre> | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Version of the OpenSearch engine to use | `string` | `null` | no |
-| <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log\_type, within the same resource | `any` | <pre>[<br>  {<br>    "log_type": "INDEX_SLOW_LOGS"<br>  },<br>  {<br>    "log_type": "SEARCH_SLOW_LOGS"<br>  },<br>  {<br>    "log_type": "AUDIT_LOGS"<br>  }<br>]</pre> | no |
+| <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log\_type, within the same resource | `any` | <pre>[<br>  {<br>    "log_type": "INDEX_SLOW_LOGS"<br>  },<br>  {<br>    "log_type": "SEARCH_SLOW_LOGS"<br>  }<br>]</pre> | no |
 | <a name="input_node_to_node_encryption"></a> [node\_to\_node\_encryption](#input\_node\_to\_node\_encryption) | Configuration block for node-to-node encryption options | `any` | <pre>{<br>  "enabled": true<br>}</pre> | no |
 | <a name="input_off_peak_window_options"></a> [off\_peak\_window\_options](#input\_off\_peak\_window\_options) | Configuration to add Off Peak update options | `any` | <pre>{<br>  "enabled": true,<br>  "off_peak_window": {<br>    "hours": 7<br>  }<br>}</pre> | no |
 | <a name="input_outbound_connections"></a> [outbound\_connections](#input\_outbound\_connections) | Map of AWS OpenSearch outbound connections to create | `any` | `{}` | no |

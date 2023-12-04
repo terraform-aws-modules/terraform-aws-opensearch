@@ -97,7 +97,6 @@ variable "log_publishing_options" {
   default = [
     { log_type = "INDEX_SLOW_LOGS" },
     { log_type = "SEARCH_SLOW_LOGS" },
-    { log_type = "AUDIT_LOGS" }
   ]
 }
 
