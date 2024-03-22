@@ -116,6 +116,18 @@ module "opensearch" {
     }
   }
 
+  # Security Group rule example
+  security_group_rules = {
+    ingress_443 = {
+      type        = "ingress"
+      description = "HTTPS access from VPC"
+      from_port   = 443
+      to_port     = 443
+      ip_protocol = "tcp"
+      cidr_ipv4   = local.vpc_cidr
+    }
+  }
+
   # Access policy
   access_policy_statements = [
     {
