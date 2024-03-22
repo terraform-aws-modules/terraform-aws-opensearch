@@ -25,9 +25,10 @@ locals {
 module "opensearch_collection_public" {
   source = "../../modules/collection"
 
-  name        = "${local.name}-public"
-  description = "Example public OpenSearch Serverless collection"
-  type        = "SEARCH"
+  name             = "${local.name}-public"
+  description      = "Example public OpenSearch Serverless collection"
+  type             = "SEARCH"
+  standby_replicas = "DISABLED"
 
   create_access_policy  = true
   create_network_policy = true

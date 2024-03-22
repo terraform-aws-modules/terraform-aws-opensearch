@@ -32,6 +32,12 @@ variable "type" {
   default     = null
 }
 
+variable "standby_replicas" {
+  description = "Indicates whether standby replicas should be used for a collection. One of ENABLED or DISABLED. Defaults to ENABLED."
+  type        = string
+  default     = null
+}
+
 variable "timeouts" {
   description = "Create and delete timeout configurations for the collection"
   type        = map(string)
