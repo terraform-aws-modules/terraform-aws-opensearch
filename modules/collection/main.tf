@@ -13,9 +13,10 @@ locals {
 resource "aws_opensearchserverless_collection" "this" {
   count = var.create ? 1 : 0
 
-  description = var.description
-  name        = var.name
-  type        = var.type
+  description      = var.description
+  name             = var.name
+  type             = var.type
+  standby_replicas = var.standby_replicas
 
   tags = local.tags
 

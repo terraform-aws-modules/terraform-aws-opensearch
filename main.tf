@@ -79,6 +79,7 @@ resource "aws_opensearch_domain" "this" {
       }
 
       rollback_on_disable = try(auto_tune_options.value.rollback_on_disable, null)
+      use_off_peak_window = try(auto_tune_options.value.use_off_peak_window, null)
     }
   }
 
