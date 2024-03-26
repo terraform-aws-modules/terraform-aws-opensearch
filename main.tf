@@ -106,7 +106,7 @@ resource "aws_opensearch_domain" "this" {
       warm_type                     = try(cluster_config.value.warm_type, null)
 
       dynamic "zone_awareness_config" {
-        for_each = try([cluster_config.value.zone_awareness_config], [{}])
+        for_each = try([cluster_config.value.zone_awareness_config], [])
 
         content {
           availability_zone_count = try(zone_awareness_config.value.availability_zone_count, null)
