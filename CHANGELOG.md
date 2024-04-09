@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.1.0...v1.1.1) (2024-04-09)
+
+
+### Bug Fixes
+
+* Fix the condition of the logical operators of `master_user_name` and `master_user_password` ([#4](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/4)) ([fa811d2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/fa811d29e80f1658b8af148c8d0697b29fbc6593))
+
 ## [1.1.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.0.0...v1.1.0) (2024-03-22)
 
 
