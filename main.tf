@@ -45,9 +45,9 @@ resource "aws_opensearch_domain" "this" {
         for_each = try([advanced_security_options.value.master_user_options], [{}])
 
         content {
-          master_user_arn      = try(master_user_options.value.master_user_arn, null) == null ? try(master_user_options.value.master_user_arn, data.aws_iam_session_context.current[0].issuer_arn) : null
-          master_user_name     = try(master_user_options.value.master_user_name, null) == null ? try(master_user_options.value.master_user_name, null) : null
-          master_user_password = try(master_user_options.value.master_user_password, null) == null ? try(master_user_options.value.master_user_password, null) : null
+          master_user_arn      = try(master_user_options.value.master_user_arn, null) != null ? try(master_user_options.value.master_user_arn, data.aws_iam_session_context.current[0].issuer_arn) : null
+          master_user_name     = try(master_user_options.value.master_user_name, null) != null ? try(master_user_options.value.master_user_name, null) : null
+          master_user_password = try(master_user_options.value.master_user_password, null) != null ? try(master_user_options.value.master_user_password, null) : null
         }
       }
     }
