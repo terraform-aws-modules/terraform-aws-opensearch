@@ -304,7 +304,7 @@ data "aws_iam_policy_document" "this" {
         }
       }
 
-      dynamic "condition" {
+      dynamic "conditions" {
         for_each = try(statement.value.conditions, [])
 
         content {
