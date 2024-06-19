@@ -163,7 +163,8 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
-  engine_version = var.engine_version
+  engine_version  = var.engine_version
+  ip_address_type = var.ip_address_type
 
   dynamic "log_publishing_options" {
     for_each = { for opt in var.log_publishing_options : opt.log_type => opt }
@@ -402,6 +403,8 @@ resource "aws_cloudwatch_log_group" "this" {
   name              = try(each.value.log_group_name, "/aws/opensearch/${var.domain_name}/${each.key}")
   retention_in_days = try(each.value.log_group_retention_in_days, var.cloudwatch_log_group_retention_in_days)
   kms_key_id        = try(each.value.log_group_kms_key_id, var.cloudwatch_log_group_kms_key_id)
+  skip_destroy      = try(each.value.log_group_skip_destroy, var.cloudwatch_log_group_skip_destroy)
+  log_group_class   = try(each.value.log_group_class, var.cloudwatch_log_group_class)
 
   tags = merge(local.tags, try(each.value.log_group_tags, {}))
 }
