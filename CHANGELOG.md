@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.1.2...v1.2.0) (2024-06-19)
+
+
+### Features
+
+* Opensearch Domain `ip_address_type`, Cloudwatch `log_group_class`, and `skip_destroy` ([#13](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/13)) ([b7ab787](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/b7ab7872ba8e4508b7e9879fe0608745ce369af0))
+
 ## [1.1.2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.1.1...v1.1.2) (2024-04-09)
 
 
