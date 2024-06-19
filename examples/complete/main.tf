@@ -97,6 +97,8 @@ module "opensearch" {
     { log_type = "SEARCH_SLOW_LOGS" },
   ]
 
+  ip_address_type = "dualstack"
+
   node_to_node_encryption = {
     enabled = true
   }
@@ -171,6 +173,11 @@ module "vpc" {
   azs             = local.azs
   public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
+
+  enable_ipv6 = true
+
+  public_subnet_ipv6_prefixes  = [0, 1, 2]
+  private_subnet_ipv6_prefixes = [3, 4, 5]
 
   tags = local.tags
 }
