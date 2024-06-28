@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.0...v1.2.1) (2024-06-28)
+
+
+### Bug Fixes
+
+* Create a domain policy that implicitly depends_on domain ([#15](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/15)) ([473ba5d](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/473ba5df25e8b1b480c7dc661361b39c2ac8ce6d))
+
 ## [1.2.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.1.2...v1.2.0) (2024-06-19)
 
 
