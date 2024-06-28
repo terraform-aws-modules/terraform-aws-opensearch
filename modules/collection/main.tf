@@ -64,7 +64,7 @@ resource "aws_opensearchserverless_security_policy" "encryption" {
 resource "aws_opensearchserverless_security_policy" "network" {
   count = var.create && var.create_network_policy ? 1 : 0
 
-  description = coalesce(var.network_policy_description, "Newtwork policy for ${var.name} collection")
+  description = coalesce(var.network_policy_description, "Network policy for ${var.name} collection")
   name        = coalesce(var.network_policy_name, "${var.name}-network")
   policy = jsonencode([merge(
     {
