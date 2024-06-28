@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.1...v1.2.2) (2024-06-28)
+
+
+### Bug Fixes
+
+* Correct mis-spelling in serverless security policy default description ([#16](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/16)) ([844a435](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/844a4354734c7f3f74e412aa001844955d1031e6))
+
 ## [1.2.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.0...v1.2.1) (2024-06-28)
 
 
