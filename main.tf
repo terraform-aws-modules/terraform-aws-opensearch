@@ -264,7 +264,7 @@ locals {
 resource "aws_opensearch_domain_policy" "this" {
   count = var.create && var.enable_access_policy && (local.create_access_policy || var.access_policies != null) ? 1 : 0
 
-  domain_name     = var.domain_name
+  domain_name     = aws_opensearch_domain.this[0].domain_name
   access_policies = local.create_access_policy ? data.aws_iam_policy_document.this[0].json : var.access_policies
 }
 
