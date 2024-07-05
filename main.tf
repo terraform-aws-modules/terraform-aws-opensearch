@@ -224,6 +224,11 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  timeouts {
+    create = try(var.timeouts.create, null)
+    delete = try(var.timeouts.delete, null)
+  }
+
   tags = local.tags
 }
 

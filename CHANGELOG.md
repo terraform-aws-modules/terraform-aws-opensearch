@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.2...v1.3.0) (2024-07-05)
+
+
+### Features
+
+* Add timeout for opensearch domain ([#21](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/21)) ([e8ff403](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/e8ff403c1d05416f5f93156c89cd2026767ee5da))
+
 ## [1.2.2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.1...v1.2.2) (2024-06-28)
 
 

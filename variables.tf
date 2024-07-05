@@ -139,6 +139,12 @@ variable "vpc_options" {
   default     = {}
 }
 
+variable "timeouts" {
+  description = "Create and delete timeout configurations for the domain"
+  type        = map(string)
+  default     = {}
+}
+
 ################################################################################
 # Package Association(s)
 ################################################################################
