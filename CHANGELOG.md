@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.3.0...v1.3.1) (2024-07-05)
+
+
+### Bug Fixes
+
+* Correct evaluation logic when determining `master_user_options` arguments ([#20](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/20)) ([7d00ee2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/7d00ee201b66be008bd64a7ca520055e573a7194))
+
 ## [1.3.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.2.2...v1.3.0) (2024-07-05)
 
 
