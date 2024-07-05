@@ -223,6 +223,7 @@ No modules.
 | <a name="input_security_group_use_name_prefix"></a> [security\_group\_use\_name\_prefix](#input\_security\_group\_use\_name\_prefix) | Determines whether the security group name (`security_group_name`) is used as a prefix | `bool` | `true` | no |
 | <a name="input_software_update_options"></a> [software\_update\_options](#input\_software\_update\_options) | Software update options for the domain | `any` | <pre>{<br>  "auto_software_update_enabled": true<br>}</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
+| <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the domain | `map(string)` | `{}` | no |
 | <a name="input_vpc_endpoints"></a> [vpc\_endpoints](#input\_vpc\_endpoints) | Map of VPC endpoints to create for the domain | `any` | `{}` | no |
 | <a name="input_vpc_options"></a> [vpc\_options](#input\_vpc\_options) | Configuration block for VPC related options. Adding or removing this configuration forces a new resource ([documentation](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-vpc-limitations)) | `any` | `{}` | no |
 

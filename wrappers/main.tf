@@ -72,6 +72,7 @@ module "wrapper" {
     auto_software_update_enabled = true
   })
   tags          = try(each.value.tags, var.defaults.tags, {})
+  timeouts      = try(each.value.timeouts, var.defaults.timeouts, {})
   vpc_endpoints = try(each.value.vpc_endpoints, var.defaults.vpc_endpoints, {})
   vpc_options   = try(each.value.vpc_options, var.defaults.vpc_options, {})
 }
