@@ -17,9 +17,19 @@ output "domain_endpoint" {
   value       = try(aws_opensearch_domain.this[0].endpoint, null)
 }
 
+output "domain_endpoint_v2" {
+  description = "V2 domain endpoint that works with both IPv4 and IPv6 addresses, used to submit index, search, and data upload requests"
+  value       = try(aws_opensearch_domain.this[0].endpoint_v2, null)
+}
+
 output "domain_dashboard_endpoint" {
   description = "Domain-specific endpoint for Dashboard without https scheme"
   value       = try(aws_opensearch_domain.this[0].dashboard_endpoint, null)
+}
+
+output "domain_dashboard_endpoint_v2" {
+  description = "V2 domain endpoint for Dashboard that works with both IPv4 and IPv6 addresses, without https scheme"
+  value       = try(aws_opensearch_domain.this[0].dashboard_endpoint_v2, null)
 }
 
 ################################################################################
