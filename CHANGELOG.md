@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.3.1...v1.4.0) (2024-08-28)
+
+
+### Features
+
+* Added dual-stack domain endpoints to outputs ([#23](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/23)) ([4e09835](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/4e098353df20c1d1768e4126c832a7d7fb8b7adb))
+
 ## [1.3.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.3.0...v1.3.1) (2024-07-05)
 
 
