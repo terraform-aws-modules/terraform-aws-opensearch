@@ -36,7 +36,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 - [Complete](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples/complete)
 - [Serverless](https://github.com/terraform-aws-modules/terraform-aws-opensearch/tree/master/examples/collection)
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -70,9 +70,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_policy"></a> [access\_policy](#input\_access\_policy) | Access policy to apply to the collection | `any` | `{}` | no |
-| <a name="input_access_policy_collection_permissions"></a> [access\_policy\_collection\_permissions](#input\_access\_policy\_collection\_permissions) | Access policy permissions for the collection | `list(string)` | <pre>[<br>  "aoss:*"<br>]</pre> | no |
+| <a name="input_access_policy_collection_permissions"></a> [access\_policy\_collection\_permissions](#input\_access\_policy\_collection\_permissions) | Access policy permissions for the collection | `list(string)` | <pre>[<br/>  "aoss:*"<br/>]</pre> | no |
 | <a name="input_access_policy_description"></a> [access\_policy\_description](#input\_access\_policy\_description) | Description of the access policy | `string` | `null` | no |
-| <a name="input_access_policy_index_permissions"></a> [access\_policy\_index\_permissions](#input\_access\_policy\_index\_permissions) | Access policy permissions for the collection index | `list(string)` | <pre>[<br>  "aoss:*"<br>]</pre> | no |
+| <a name="input_access_policy_index_permissions"></a> [access\_policy\_index\_permissions](#input\_access\_policy\_index\_permissions) | Access policy permissions for the collection index | `list(string)` | <pre>[<br/>  "aoss:*"<br/>]</pre> | no |
 | <a name="input_access_policy_name"></a> [access\_policy\_name](#input\_access\_policy\_name) | Name of the access policy | `string` | `null` | no |
 | <a name="input_access_policy_principals"></a> [access\_policy\_principals](#input\_access\_policy\_principals) | Access policy principals | `list(string)` | `[]` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
@@ -114,7 +114,7 @@ No modules.
 | <a name="output_lifecycle_policy_version"></a> [lifecycle\_policy\_version](#output\_lifecycle\_policy\_version) | The version of the lifecycle policy |
 | <a name="output_network_policy"></a> [network\_policy](#output\_network\_policy) | The JSON policy document of the network policy |
 | <a name="output_network_policy_version"></a> [network\_policy\_version](#output\_network\_policy\_version) | The version of the network policy |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 ## License
 
