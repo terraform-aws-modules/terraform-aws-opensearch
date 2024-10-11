@@ -14,7 +14,7 @@ $ terraform apply
 
 Note that this example may create resources which will incur monetary charges on your AWS bill. Run `terraform destroy` when you no longer need these resources.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -78,6 +78,6 @@ No inputs.
 | <a name="output_opensearch_collection_public_lifecycle_policy_version"></a> [opensearch\_collection\_public\_lifecycle\_policy\_version](#output\_opensearch\_collection\_public\_lifecycle\_policy\_version) | The version of the lifecycle policy |
 | <a name="output_opensearch_collection_public_network_policy"></a> [opensearch\_collection\_public\_network\_policy](#output\_opensearch\_collection\_public\_network\_policy) | The JSON policy document of the network policy |
 | <a name="output_opensearch_collection_public_network_policy_version"></a> [opensearch\_collection\_public\_network\_policy\_version](#output\_opensearch\_collection\_public\_network\_policy\_version) | The version of the network policy |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
 
 Apache-2.0 Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-opensearch/blob/master/LICENSE).
