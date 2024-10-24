@@ -60,9 +60,11 @@ module "opensearch" {
 
   cluster_config = {
     instance_count           = 3
-    dedicated_master_enabled = true
-    dedicated_master_type    = "c6g.large.search"
     instance_type            = "r6g.large.search"
+
+    dedicated_master_enabled = true
+    dedicated_master_count   = 3
+    dedicated_master_type    = "c6g.large.search"
 
     zone_awareness_config = {
       availability_zone_count = 3
@@ -149,6 +151,11 @@ module "opensearch" {
       }]
     }
   ]
+
+  # Off-peak window
+  off_peak_window_options = {
+    enabled = false
+  }
 
   tags = local.tags
 }
