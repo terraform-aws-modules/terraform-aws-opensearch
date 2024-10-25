@@ -47,9 +47,13 @@ module "opensearch" {
   }
 
   cluster_config = {
-    instance_count           = 3
+    multi_az_with_standby_enabled = false
+
     dedicated_master_enabled = true
+    dedicated_master_count   = 3
     dedicated_master_type    = "c6g.large.search"
+
+    instance_count           = 3
     instance_type            = "r6g.large.search"
 
     zone_awareness_config = {
@@ -123,6 +127,11 @@ module "opensearch" {
       }]
     }
   ]
+
+  # Off-peak window
+  off_peak_window_options = {
+    enabled = false
+  }
 
   tags = {
     Terraform   = "true"
@@ -212,7 +221,7 @@ No modules.
 | <a name="input_ip_address_type"></a> [ip\_address\_type](#input\_ip\_address\_type) | The IP address type for the endpoint. Valid values are ipv4 and dualstack | `string` | `null` | no |
 | <a name="input_log_publishing_options"></a> [log\_publishing\_options](#input\_log\_publishing\_options) | Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log\_type, within the same resource | `any` | <pre>[<br/>  {<br/>    "log_type": "INDEX_SLOW_LOGS"<br/>  },<br/>  {<br/>    "log_type": "SEARCH_SLOW_LOGS"<br/>  }<br/>]</pre> | no |
 | <a name="input_node_to_node_encryption"></a> [node\_to\_node\_encryption](#input\_node\_to\_node\_encryption) | Configuration block for node-to-node encryption options | `any` | <pre>{<br/>  "enabled": true<br/>}</pre> | no |
-| <a name="input_off_peak_window_options"></a> [off\_peak\_window\_options](#input\_off\_peak\_window\_options) | Configuration to add Off Peak update options | `any` | <pre>{<br/>  "enabled": true,<br/>  "off_peak_window": {<br/>    "hours": 7<br/>  }<br/>}</pre> | no |
+| <a name="input_off_peak_window_options"></a> [off\_peak\_window\_options](#input\_off\_peak\_window\_options) | Configuration to add Off Peak update options. OpenSearch Service uses off-peak window to schedule service software updates and Auto-Tune optimizations that require a blue/green deployment during comparatively lower traffic times, whenever possible. Refer to the [AWS documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/off-peak.html) for details. | `any` | <pre>{<br/>  "enabled": true,<br/>  "off_peak_window": {<br/>    "hours": 7<br/>  }<br/>}</pre> | no |
 | <a name="input_outbound_connections"></a> [outbound\_connections](#input\_outbound\_connections) | Map of AWS OpenSearch outbound connections to create | `any` | `{}` | no |
 | <a name="input_package_associations"></a> [package\_associations](#input\_package\_associations) | Map of package association IDs to associate with the domain | `map(string)` | `{}` | no |
 | <a name="input_saml_options"></a> [saml\_options](#input\_saml\_options) | SAML authentication options for an AWS OpenSearch Domain | `any` | `{}` | no |
