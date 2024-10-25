@@ -59,6 +59,8 @@ module "opensearch" {
   }
 
   cluster_config = {
+    multi_az_with_standby_enabled = false
+
     instance_count           = 3
     instance_type            = "r6g.large.search"
 
