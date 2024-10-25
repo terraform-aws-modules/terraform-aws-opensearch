@@ -53,8 +53,8 @@ module "opensearch" {
     dedicated_master_count   = 3
     dedicated_master_type    = "c6g.large.search"
 
-    instance_count           = 3
-    instance_type            = "r6g.large.search"
+    instance_count = 3
+    instance_type  = "r6g.large.search"
 
     zone_awareness_config = {
       availability_zone_count = 3
