@@ -288,7 +288,10 @@ data "aws_iam_policy_document" "this" {
       not_actions = try(statement.value.not_actions, null)
       effect      = try(statement.value.effect, null)
       resources = try(statement.value.resources,
-        [for path in try(statement.value.resource_paths, ["*"]) : "${aws_opensearch_domain.this[0].arn}/${path}"]
+        [
+          for path in try(statement.value.resource_paths, ["*"]) : 
+          "${aws_opensearch_domain.this[0].arn}${path == "/*" ? "/*" : path}"
+          ]
       )
       not_resources = try(statement.value.not_resources, null)
 
