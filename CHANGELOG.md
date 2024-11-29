@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.4.0...v1.4.1) (2024-11-29)
+
+
+### Bug Fixes
+
+* Skip `zone_awareness_config` if `zone_awareness` is not enabled ([#32](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/32)) ([1ff02d2](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/1ff02d2ffd1feae6afdf85a4c493e5cd2acff014))
+* Update CI workflow versions to latest ([#29](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/29)) ([dde73c8](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/dde73c841f48467127ba2beef49bd2c6d9728853))
+
 ## [1.4.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.3.1...v1.4.0) (2024-08-28)
 
 
