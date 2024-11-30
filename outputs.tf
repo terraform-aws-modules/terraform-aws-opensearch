@@ -32,6 +32,11 @@ output "domain_dashboard_endpoint_v2" {
   value       = try(aws_opensearch_domain.this[0].dashboard_endpoint_v2, null)
 }
 
+output "domain_endpoint_v2_hosted_zone_id" {
+  description = "Dual stack hosted zone ID for the domain."
+  value       = try(aws_opensearch_domain.this[0].domain_endpoint_v2_hosted_zone_id, null)
+}
+
 ################################################################################
 # Package Association(s)
 ################################################################################
