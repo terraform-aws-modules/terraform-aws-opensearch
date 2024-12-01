@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.4.1...v1.5.0) (2024-12-01)
+
+
+### Features
+
+* Add `domain_endpoint_v2_hosted_zone_id` to outputs ([#33](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/33)) ([7440825](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/744082557409584374db15bc1d71f412dbcd21e4))
+
 ## [1.4.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.4.0...v1.4.1) (2024-11-29)
 
 
