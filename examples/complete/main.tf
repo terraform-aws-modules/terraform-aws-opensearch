@@ -142,7 +142,7 @@ module "opensearch" {
 
       actions = ["es:*"]
 
-      condition = [{
+      conditions = [{
         test     = "IpAddress"
         variable = "aws:SourceIp"
         values   = ["127.0.0.1/32"]
