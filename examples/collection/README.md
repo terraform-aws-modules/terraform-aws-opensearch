@@ -63,6 +63,7 @@ No inputs.
 | <a name="output_opensearch_collection_private_kms_key_arn"></a> [opensearch\_collection\_private\_kms\_key\_arn](#output\_opensearch\_collection\_private\_kms\_key\_arn) | The ARN of the Amazon Web Services KMS key used to encrypt the collection |
 | <a name="output_opensearch_collection_private_lifecycle_policy"></a> [opensearch\_collection\_private\_lifecycle\_policy](#output\_opensearch\_collection\_private\_lifecycle\_policy) | The JSON policy document of the lifecycle policy |
 | <a name="output_opensearch_collection_private_lifecycle_policy_version"></a> [opensearch\_collection\_private\_lifecycle\_policy\_version](#output\_opensearch\_collection\_private\_lifecycle\_policy\_version) | The version of the lifecycle policy |
+| <a name="output_opensearch_collection_private_name"></a> [opensearch\_collection\_private\_name](#output\_opensearch\_collection\_private\_name) | Name of the collection |
 | <a name="output_opensearch_collection_private_network_policy"></a> [opensearch\_collection\_private\_network\_policy](#output\_opensearch\_collection\_private\_network\_policy) | The JSON policy document of the network policy |
 | <a name="output_opensearch_collection_private_network_policy_version"></a> [opensearch\_collection\_private\_network\_policy\_version](#output\_opensearch\_collection\_private\_network\_policy\_version) | The version of the network policy |
 | <a name="output_opensearch_collection_public_access_policy"></a> [opensearch\_collection\_public\_access\_policy](#output\_opensearch\_collection\_public\_access\_policy) | The JSON policy document of the access policy |
@@ -76,6 +77,7 @@ No inputs.
 | <a name="output_opensearch_collection_public_kms_key_arn"></a> [opensearch\_collection\_public\_kms\_key\_arn](#output\_opensearch\_collection\_public\_kms\_key\_arn) | The ARN of the Amazon Web Services KMS key used to encrypt the collection |
 | <a name="output_opensearch_collection_public_lifecycle_policy"></a> [opensearch\_collection\_public\_lifecycle\_policy](#output\_opensearch\_collection\_public\_lifecycle\_policy) | The JSON policy document of the lifecycle policy |
 | <a name="output_opensearch_collection_public_lifecycle_policy_version"></a> [opensearch\_collection\_public\_lifecycle\_policy\_version](#output\_opensearch\_collection\_public\_lifecycle\_policy\_version) | The version of the lifecycle policy |
+| <a name="output_opensearch_collection_public_name"></a> [opensearch\_collection\_public\_name](#output\_opensearch\_collection\_public\_name) | Name of the collection |
 | <a name="output_opensearch_collection_public_network_policy"></a> [opensearch\_collection\_public\_network\_policy](#output\_opensearch\_collection\_public\_network\_policy) | The JSON policy document of the network policy |
 | <a name="output_opensearch_collection_public_network_policy_version"></a> [opensearch\_collection\_public\_network\_policy\_version](#output\_opensearch\_collection\_public\_network\_policy\_version) | The version of the network policy |
 <!-- END_TF_DOCS -->

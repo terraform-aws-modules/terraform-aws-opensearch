@@ -27,6 +27,11 @@ output "id" {
   value       = try(aws_opensearchserverless_collection.this[0].id, null)
 }
 
+output "name" {
+  description = "Name of the collection"
+  value       = try(aws_opensearchserverless_collection.this[0].name, null)
+}
+
 ################################################################################
 # Encryption Policy
 ################################################################################

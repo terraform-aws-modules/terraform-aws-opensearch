@@ -27,6 +27,11 @@ output "opensearch_collection_public_id" {
   value       = module.opensearch_collection_public.id
 }
 
+output "opensearch_collection_public_name" {
+  description = "Name of the collection"
+  value       = module.opensearch_collection_public.name
+}
+
 output "opensearch_collection_public_encryption_policy_version" {
   description = "The version of the encryption policy"
   value       = module.opensearch_collection_public.encryption_policy_version
@@ -94,6 +99,11 @@ output "opensearch_collection_private_kms_key_arn" {
 output "opensearch_collection_private_id" {
   description = "Unique identifier for the collection"
   value       = module.opensearch_collection_private.id
+}
+
+output "opensearch_collection_private_name" {
+  description = "Name of the collection"
+  value       = module.opensearch_collection_private.name
 }
 
 output "opensearch_collection_private_encryption_policy_version" {
