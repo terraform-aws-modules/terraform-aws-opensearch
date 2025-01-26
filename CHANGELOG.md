@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.5.0...v1.6.0) (2025-01-26)
+
+
+### Features
+
+* Add `collection_name` to outputs ([#35](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/35)) ([111032e](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/111032e0f468b0201776a72dbe32e39c35e5ab1b))
+
 ## [1.5.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.4.1...v1.5.0) (2024-12-01)
 
 
