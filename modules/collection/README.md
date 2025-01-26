@@ -112,6 +112,7 @@ No modules.
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | The ARN of the Amazon Web Services KMS key used to encrypt the collection |
 | <a name="output_lifecycle_policy"></a> [lifecycle\_policy](#output\_lifecycle\_policy) | The JSON policy document of the lifecycle policy |
 | <a name="output_lifecycle_policy_version"></a> [lifecycle\_policy\_version](#output\_lifecycle\_policy\_version) | The version of the lifecycle policy |
+| <a name="output_name"></a> [name](#output\_name) | Name of the collection |
 | <a name="output_network_policy"></a> [network\_policy](#output\_network\_policy) | The JSON policy document of the network policy |
 | <a name="output_network_policy_version"></a> [network\_policy\_version](#output\_network\_policy\_version) | The version of the network policy |
 <!-- END_TF_DOCS -->
