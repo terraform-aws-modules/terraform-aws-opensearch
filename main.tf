@@ -115,12 +115,12 @@ resource "aws_opensearch_domain" "this" {
 
             content {
               count   = try(node_config.value.count, null)
-              enabled = try(node_config.value.enabled, null)
+              enabled = try(node_config.value.enabled, true)
               type    = try(node_config.value.type, null)
             }
           }
 
-          node_type = try(node_options.key, node_options.value.node_type, null)
+          node_type = try(node_options.value.node_type, node_options.key, null)
         }
       }
 
