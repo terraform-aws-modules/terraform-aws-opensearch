@@ -64,6 +64,16 @@ module "opensearch" {
     dedicated_master_type    = "c6g.large.search"
     instance_type            = "r6g.large.search"
 
+    node_options = {
+      coordinator = {
+        node_config = {
+          enabled = true
+          count   = 3
+          type    = "m6g.large.search"
+        }
+      }
+    }
+
     zone_awareness_config = {
       availability_zone_count = 3
     }

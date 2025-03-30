@@ -105,6 +105,25 @@ resource "aws_opensearch_domain" "this" {
       warm_enabled                  = try(cluster_config.value.warm_enabled, null)
       warm_type                     = try(cluster_config.value.warm_type, null)
 
+      dynamic "node_options" {
+        for_each = try(cluster_config.value.node_options, [])
+
+        content {
+
+          dynamic "node_config" {
+            for_each = try([node_options.value.node_config], [])
+
+            content {
+              count   = try(node_config.value.count, null)
+              enabled = try(node_config.value.enabled, true)
+              type    = try(node_config.value.type, null)
+            }
+          }
+
+          node_type = try(node_options.value.node_type, node_options.key, null)
+        }
+      }
+
       dynamic "zone_awareness_config" {
         for_each = try(cluster_config.value.zone_awareness_enabled, true) ? try([cluster_config.value.zone_awareness_config], []) : []
 
