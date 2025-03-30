@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.6.0...v1.7.0) (2025-03-30)
+
+
+### Features
+
+* Support `aws_opensearch_domain.node_options` ([#37](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/37)) ([2a14c3f](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/2a14c3fe32471c301b0892255646bf2f1ea8476b))
+
 ## [1.6.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.5.0...v1.6.0) (2025-01-26)
 
 
