@@ -125,6 +125,12 @@ variable "off_peak_window_options" {
   }
 }
 
+variable "region" {
+  description = "Region where this resource will be managed. Defaults to the Region set in the provider configuration"
+  type        = string
+  default     = null
+}
+
 variable "software_update_options" {
   description = "Software update options for the domain"
   type        = any

@@ -62,6 +62,7 @@ module "wrapper" {
   })
   outbound_connections           = try(each.value.outbound_connections, var.defaults.outbound_connections, {})
   package_associations           = try(each.value.package_associations, var.defaults.package_associations, {})
+  region                         = try(each.value.region, var.defaults.region, null)
   saml_options                   = try(each.value.saml_options, var.defaults.saml_options, {})
   security_group_description     = try(each.value.security_group_description, var.defaults.security_group_description, null)
   security_group_name            = try(each.value.security_group_name, var.defaults.security_group_name, null)

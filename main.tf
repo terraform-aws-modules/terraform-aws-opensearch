@@ -15,7 +15,7 @@ data "aws_iam_session_context" "current" {
 locals {
   account_id = try(data.aws_caller_identity.current[0].account_id, "")
   partition  = try(data.aws_partition.current[0].partition, "")
-  region     = try(data.aws_region.current[0].name, "")
+  region     = try(data.aws_region.current[0].region, "")
 
   static_domain_arn = "arn:${local.partition}:es:${local.region}:${local.account_id}:domain/${var.domain_name}"
 
@@ -226,6 +226,8 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  region = var.region
+
   dynamic "software_update_options" {
     for_each = length(var.software_update_options) > 0 ? [var.software_update_options] : []
 
@@ -260,6 +262,7 @@ resource "aws_opensearch_package_association" "this" {
 
   package_id  = try(each.value.package_id, each.key)
   domain_name = aws_opensearch_domain.this[0].domain_name
+  region      = try(each.value.region, var.region)
 }
 
 ################################################################################
@@ -270,6 +273,7 @@ resource "aws_opensearch_vpc_endpoint" "this" {
   for_each = { for k, v in var.vpc_endpoints : k => v if var.create }
 
   domain_arn = aws_opensearch_domain.this[0].arn
+  region     = try(each.value.region, var.region)
 
   vpc_options {
     security_group_ids = try(each.value.security_group_ids, null)
@@ -290,6 +294,7 @@ resource "aws_opensearch_domain_policy" "this" {
 
   domain_name     = aws_opensearch_domain.this[0].domain_name
   access_policies = local.create_access_policy ? data.aws_iam_policy_document.this[0].json : var.access_policies
+  region          = var.region
 }
 
 data "aws_iam_policy_document" "this" {
@@ -350,6 +355,7 @@ resource "aws_opensearch_domain_saml_options" "this" {
   count = var.create && var.create_saml_options ? 1 : 0
 
   domain_name = aws_opensearch_domain.this[0].domain_name
+  region      = var.region
 
   dynamic "saml_options" {
     for_each = length(var.saml_options) > 0 ? [var.saml_options] : []
@@ -385,6 +391,7 @@ resource "aws_opensearch_outbound_connection" "this" {
   accept_connection = try(each.value.accept_connection, null)
   connection_alias  = try(each.value.connection_alias, each.key)
   connection_mode   = each.value.connection_mode
+  region            = try(each.value.region, var.region)
 
   dynamic "connection_properties" {
     for_each = try([each.value.connection_properties], [])
@@ -429,6 +436,7 @@ resource "aws_cloudwatch_log_group" "this" {
   kms_key_id        = try(each.value.log_group_kms_key_id, var.cloudwatch_log_group_kms_key_id)
   skip_destroy      = try(each.value.log_group_skip_destroy, var.cloudwatch_log_group_skip_destroy)
   log_group_class   = try(each.value.log_group_class, var.cloudwatch_log_group_class)
+  region            = try(each.value.region, var.region)
 
   tags = merge(local.tags, try(each.value.log_group_tags, {}))
 }
@@ -471,6 +479,7 @@ resource "aws_cloudwatch_log_resource_policy" "this" {
 
   policy_document = data.aws_iam_policy_document.cloudwatch[0].json
   policy_name     = coalesce(var.cloudwatch_log_resource_policy_name, "opensearch-${var.domain_name}")
+  region          = var.region
 }
 
 ################################################################################
@@ -495,6 +504,7 @@ resource "aws_security_group" "this" {
   name_prefix            = var.security_group_use_name_prefix ? "${local.security_group_name}-" : null
   description            = var.security_group_description
   vpc_id                 = data.aws_subnet.this[0].vpc_id
+  region                 = var.region
   revoke_rules_on_delete = true
 
   tags = merge(local.tags, var.security_group_tags)
@@ -519,6 +529,7 @@ resource "aws_vpc_security_group_ingress_rule" "this" {
   prefix_list_id               = lookup(each.value, "prefix_list_id", null)
   referenced_security_group_id = lookup(each.value, "referenced_security_group_id", null)
   to_port                      = try(each.value.to_port, 443)
+  region                       = try(each.value.region, var.region)
 
   tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
 }
@@ -538,6 +549,7 @@ resource "aws_vpc_security_group_egress_rule" "this" {
   prefix_list_id               = lookup(each.value, "prefix_list_id", null)
   referenced_security_group_id = lookup(each.value, "referenced_security_group_id", null)
   to_port                      = try(each.value.to_port, null)
+  region                       = try(each.value.region, var.region)
 
   tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
 }

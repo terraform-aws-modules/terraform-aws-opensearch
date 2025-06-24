@@ -41,14 +41,14 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.90 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.10 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.90 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -92,6 +92,7 @@ No modules.
 | <a name="input_network_policy"></a> [network\_policy](#input\_network\_policy) | Network policy to apply to the collection | `any` | `{}` | no |
 | <a name="input_network_policy_description"></a> [network\_policy\_description](#input\_network\_policy\_description) | Description of the network policy | `string` | `null` | no |
 | <a name="input_network_policy_name"></a> [network\_policy\_name](#input\_network\_policy\_name) | Name of the network policy | `string` | `null` | no |
+| <a name="input_region"></a> [region](#input\_region) | Region where this resource will be managed. Defaults to the Region set in the provider configuration | `string` | `null` | no |
 | <a name="input_standby_replicas"></a> [standby\_replicas](#input\_standby\_replicas) | Indicates whether standby replicas should be used for a collection. One of ENABLED or DISABLED. Defaults to ENABLED. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the collection | `map(string)` | `{}` | no |

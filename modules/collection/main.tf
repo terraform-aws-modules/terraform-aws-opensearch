@@ -15,6 +15,7 @@ resource "aws_opensearchserverless_collection" "this" {
 
   description      = var.description
   name             = var.name
+  region           = var.region
   type             = var.type
   standby_replicas = var.standby_replicas
 
@@ -54,7 +55,8 @@ resource "aws_opensearchserverless_security_policy" "encryption" {
     var.encryption_policy
   ))
 
-  type = "encryption"
+  region = var.region
+  type   = "encryption"
 }
 
 ################################################################################
@@ -83,7 +85,8 @@ resource "aws_opensearchserverless_security_policy" "network" {
     var.network_policy
   )])
 
-  type = "network"
+  region = var.region
+  type   = "network"
 }
 
 ################################################################################
@@ -113,7 +116,9 @@ resource "aws_opensearchserverless_access_policy" "this" {
     },
     var.access_policy
   )])
-  type = "data"
+
+  region = var.region
+  type   = "data"
 }
 
 ################################################################################
@@ -138,5 +143,7 @@ resource "aws_opensearchserverless_lifecycle_policy" "this" {
       ]
     }
   )
-  type = "retention"
+
+  region = var.region
+  type   = "retention"
 }
