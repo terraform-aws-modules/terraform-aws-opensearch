@@ -19,14 +19,14 @@ Note that this example may create resources which will incur monetary charges on
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.90 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.90 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.0 |
 
 ## Modules
 
@@ -35,7 +35,7 @@ Note that this example may create resources which will incur monetary charges on
 | <a name="module_opensearch_collection_disabled"></a> [opensearch\_collection\_disabled](#module\_opensearch\_collection\_disabled) | ../../modules/collection | n/a |
 | <a name="module_opensearch_collection_private"></a> [opensearch\_collection\_private](#module\_opensearch\_collection\_private) | ../../modules/collection | n/a |
 | <a name="module_opensearch_collection_public"></a> [opensearch\_collection\_public](#module\_opensearch\_collection\_public) | ../../modules/collection | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.0 |
 
 ## Resources
 

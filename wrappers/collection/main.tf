@@ -26,6 +26,7 @@ module "wrapper" {
   network_policy                          = try(each.value.network_policy, var.defaults.network_policy, {})
   network_policy_description              = try(each.value.network_policy_description, var.defaults.network_policy_description, null)
   network_policy_name                     = try(each.value.network_policy_name, var.defaults.network_policy_name, null)
+  region                                  = try(each.value.region, var.defaults.region, null)
   standby_replicas                        = try(each.value.standby_replicas, var.defaults.standby_replicas, null)
   tags                                    = try(each.value.tags, var.defaults.tags, {})
   timeouts                                = try(each.value.timeouts, var.defaults.timeouts, {})
