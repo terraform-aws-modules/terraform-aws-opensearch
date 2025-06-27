@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.7.0...v2.0.0) (2025-06-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* MSV AWS Provider v6 (#39)
+
+### Features
+
+* MSV AWS Provider v6 ([#39](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/39)) ([f99fa7e](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/f99fa7eb38dc73229212d86f6712755b23d1bef0))
+
 ## [1.7.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.6.0...v1.7.0) (2025-03-30)
 
 
