@@ -86,9 +86,23 @@ variable "encrypt_at_rest" {
 }
 
 variable "engine_version" {
-  description = "Version of the OpenSearch engine to use"
+  description = "Version of the OpenSearch engine to use. Must follow format 'OpenSearch_X.Y' (e.g., 'OpenSearch_2.11')"
   type        = string
   default     = null
+
+  validation {
+    condition     = var.engine_version == null || can(regex("^(Elasticsearch_[0-9]{1}\\.[0-9]{1,2}|OpenSearch_[0-9]{1,2}\\.[0-9]{1,2})$", var.engine_version))
+    error_message = <<-EOT
+      The engine_version must be in the format:
+      - 'OpenSearch_X.Y' where X is 1-2 digits and Y is 1-2 digits (e.g., 'OpenSearch_2.11', 'OpenSearch_1.3')
+      - 'Elasticsearch_X.Y' where X is 1 digit and Y is 1-2 digits (e.g., 'Elasticsearch_7.10')
+
+      Your provided value appears to be a software service version (with release dates/patches).
+      Please use only the engine version format. Common valid versions include:
+      - OpenSearch_1.0, OpenSearch_1.1, OpenSearch_1.2, OpenSearch_1.3
+      - OpenSearch_2.0, OpenSearch_2.3, OpenSearch_2.5, OpenSearch_2.7, OpenSearch_2.9, OpenSearch_2.11
+    EOT
+  }
 }
 
 variable "ip_address_type" {
