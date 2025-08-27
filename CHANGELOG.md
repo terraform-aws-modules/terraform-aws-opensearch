@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.0.0...v2.1.0) (2025-08-27)
+
+
+### Features
+
+* Add variable validation rules to `engine_version` to prevent invalid formats ([#42](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/42)) ([8fd929b](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/8fd929ba7c7dba3b5e90a430302b09cb5d398d7d))
+
 ## [2.0.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v1.7.0...v2.0.0) (2025-06-27)
 
 
