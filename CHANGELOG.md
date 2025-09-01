@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.1.0...v2.1.1) (2025-09-01)
+
+
+### Bug Fixes
+
+* Add region for subnets recovery ([#44](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/44)) ([e019891](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/e01989196f320ab8964f21300f53675faf27a297))
+
 ## [2.1.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.0.0...v2.1.0) (2025-08-27)
 
 
