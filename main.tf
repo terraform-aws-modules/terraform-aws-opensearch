@@ -1,5 +1,7 @@
 data "aws_region" "current" {
   count = var.create ? 1 : 0
+
+  region = var.region
 }
 data "aws_partition" "current" {
   count = var.create ? 1 : 0
@@ -494,7 +496,8 @@ locals {
 data "aws_subnet" "this" {
   count = local.create_security_group ? 1 : 0
 
-  id = element(var.vpc_options.subnet_ids, 0)
+  region = var.region
+  id     = element(var.vpc_options.subnet_ids, 0)
 }
 
 resource "aws_security_group" "this" {
