@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.1.1...v2.2.0) (2025-10-04)
+
+
+### Features
+
+* Support AIML Options ([#45](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/45)) ([845c1a3](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/845c1a3060e7da2d4af16fde64d15598d3137cda))
+
 ## [2.1.1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.1.0...v2.1.1) (2025-09-01)
 
 
