@@ -55,6 +55,28 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  dynamic "aiml_options" {
+    for_each = var.aiml_options != null ? [var.aiml_options] : []
+    content {
+
+      dynamic "natural_language_query_generation_options" {
+        for_each = aiml_options.value.natural_language_query_generation_options != null ? [aiml_options.value.natural_language_query_generation_options] : []
+
+        content {
+          desired_state = natural_language_query_generation_options.value.desired_state
+        }
+      }
+
+      dynamic "s3_vectors_engine" {
+        for_each = aiml_options.value.s3_vectors_engine != null ? [aiml_options.value.s3_vectors_engine] : []
+
+        content {
+          enabled = s3_vectors_engine.value.enabled
+        }
+      }
+    }
+  }
+
   dynamic "auto_tune_options" {
     for_each = length(var.auto_tune_options) > 0 ? [var.auto_tune_options] : []
 

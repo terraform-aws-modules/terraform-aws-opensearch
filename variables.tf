@@ -29,6 +29,19 @@ variable "advanced_security_options" {
   }
 }
 
+variable "aiml_options" {
+  description = "Configuration block for Natural Language Query Generation and s3 Vectors"
+  type = object({
+    natural_language_query_generation_options = optional(object({
+      desired_state = optional(string)
+    }))
+    s3_vectors_engine = optional(object({
+      enabled = optional(bool)
+    }))
+  })
+  default = null
+}
+
 variable "auto_tune_options" {
   description = "Configuration block for the Auto-Tune options of the domain"
   type        = any

@@ -12,6 +12,7 @@ module "wrapper" {
     enabled                = true
     anonymous_auth_enabled = false
   })
+  aiml_options = try(each.value.aiml_options, var.defaults.aiml_options, null)
   auto_tune_options = try(each.value.auto_tune_options, var.defaults.auto_tune_options, {
     desired_state       = "ENABLED"
     rollback_on_disable = "NO_ROLLBACK"
