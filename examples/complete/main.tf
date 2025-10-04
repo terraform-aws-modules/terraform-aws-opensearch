@@ -100,7 +100,7 @@ module "opensearch" {
     enabled = true
   }
 
-  engine_version = "OpenSearch_2.11"
+  engine_version = "OpenSearch_2.13"
 
   log_publishing_options = [
     { log_type = "INDEX_SLOW_LOGS" },
