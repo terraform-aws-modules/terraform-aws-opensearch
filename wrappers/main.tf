@@ -34,7 +34,7 @@ module "wrapper" {
   create_security_group                 = try(each.value.create_security_group, var.defaults.create_security_group, true)
   domain_endpoint_options = try(each.value.domain_endpoint_options, var.defaults.domain_endpoint_options, {
     enforce_https       = true
-    tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
+    tls_security_policy = "Policy-Min-TLS-1-2-PFS-2023-10"
   })
   domain_name = try(each.value.domain_name, var.defaults.domain_name, "")
   ebs_options = try(each.value.ebs_options, var.defaults.ebs_options, {
