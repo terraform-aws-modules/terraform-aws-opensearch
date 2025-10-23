@@ -12,6 +12,11 @@ output "domain_id" {
   value       = module.opensearch.domain_id
 }
 
+output "domain_name" {
+  description = "The name of the domain"
+  value       = module.opensearch.domain_name
+}
+
 output "domain_endpoint" {
   description = "Domain-specific endpoint used to submit index, search, and data upload requests"
   value       = module.opensearch.domain_endpoint
