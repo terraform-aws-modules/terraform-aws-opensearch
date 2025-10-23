@@ -179,7 +179,7 @@ resource "aws_opensearch_domain" "this" {
       custom_endpoint_certificate_arn = try(domain_endpoint_options.value.custom_endpoint_certificate_arn, null)
       custom_endpoint_enabled         = try(domain_endpoint_options.value.custom_endpoint_enabled, null)
       enforce_https                   = try(domain_endpoint_options.value.enforce_https, true)
-      tls_security_policy             = try(domain_endpoint_options.value.tls_security_policy, "Policy-Min-TLS-1-2-2019-07")
+      tls_security_policy             = try(domain_endpoint_options.value.tls_security_policy, "Policy-Min-TLS-1-2-PFS-2023-10")
     }
   }
 

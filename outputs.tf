@@ -12,6 +12,11 @@ output "domain_id" {
   value       = try(aws_opensearch_domain.this[0].domain_id, null)
 }
 
+output "domain_name" {
+  description = "The name of the domain"
+  value       = try(aws_opensearch_domain.this[0].domain_name, null)
+}
+
 output "domain_endpoint" {
   description = "Domain-specific endpoint used to submit index, search, and data upload requests"
   value       = try(aws_opensearch_domain.this[0].endpoint, null)
