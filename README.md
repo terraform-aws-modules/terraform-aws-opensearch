@@ -241,6 +241,7 @@ No modules.
 | <a name="output_domain_endpoint_v2"></a> [domain\_endpoint\_v2](#output\_domain\_endpoint\_v2) | V2 domain endpoint that works with both IPv4 and IPv6 addresses, used to submit index, search, and data upload requests |
 | <a name="output_domain_endpoint_v2_hosted_zone_id"></a> [domain\_endpoint\_v2\_hosted\_zone\_id](#output\_domain\_endpoint\_v2\_hosted\_zone\_id) | Dual stack hosted zone ID for the domain. |
 | <a name="output_domain_id"></a> [domain\_id](#output\_domain\_id) | The unique identifier for the domain |
+| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | The name of the domain |
 | <a name="output_outbound_connections"></a> [outbound\_connections](#output\_outbound\_connections) | Map of outbound connections created and their attributes |
 | <a name="output_package_associations"></a> [package\_associations](#output\_package\_associations) | Map of package associations created and their attributes |
 | <a name="output_security_group_arn"></a> [security\_group\_arn](#output\_security\_group\_arn) | Amazon Resource Name (ARN) of the security group |
