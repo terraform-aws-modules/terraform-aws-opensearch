@@ -2,10 +2,6 @@ data "aws_caller_identity" "current" {
   count = var.create ? 1 : 0
 }
 
-locals {
-  tags = merge(var.tags, { terraform-aws-modules = "opensearch" })
-}
-
 ################################################################################
 # Collection
 ################################################################################
@@ -19,7 +15,7 @@ resource "aws_opensearchserverless_collection" "this" {
   type             = var.type
   standby_replicas = var.standby_replicas
 
-  tags = local.tags
+  tags = var.tags
 
   timeouts {
     create = try(var.timeouts.delete, null)

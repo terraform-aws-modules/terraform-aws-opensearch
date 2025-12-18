@@ -20,8 +20,6 @@ locals {
   region     = try(data.aws_region.current[0].region, "")
 
   static_domain_arn = "arn:${local.partition}:es:${local.region}:${local.account_id}:domain/${var.domain_name}"
-
-  tags = merge(var.tags, { terraform-aws-modules = "opensearch" })
 }
 
 ################################################################################
@@ -285,7 +283,7 @@ resource "aws_opensearch_domain" "this" {
     delete = try(var.timeouts.delete, null)
   }
 
-  tags = local.tags
+  tags = var.tags
 }
 
 ################################################################################
@@ -473,7 +471,7 @@ resource "aws_cloudwatch_log_group" "this" {
   log_group_class   = try(each.value.log_group_class, var.cloudwatch_log_group_class)
   region            = try(each.value.region, var.region)
 
-  tags = merge(local.tags, try(each.value.log_group_tags, {}))
+  tags = merge(var.tags, try(each.value.log_group_tags, {}))
 }
 
 data "aws_iam_policy_document" "cloudwatch" {
@@ -543,7 +541,7 @@ resource "aws_security_group" "this" {
   region                 = var.region
   revoke_rules_on_delete = true
 
-  tags = merge(local.tags, var.security_group_tags)
+  tags = merge(var.tags, var.security_group_tags)
 
   lifecycle {
     create_before_destroy = true
@@ -567,7 +565,7 @@ resource "aws_vpc_security_group_ingress_rule" "this" {
   to_port                      = try(each.value.to_port, 443)
   region                       = try(each.value.region, var.region)
 
-  tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
+  tags = merge(var.tags, var.security_group_tags, try(each.value.tags, {}))
 }
 
 resource "aws_vpc_security_group_egress_rule" "this" {
@@ -587,5 +585,5 @@ resource "aws_vpc_security_group_egress_rule" "this" {
   to_port                      = try(each.value.to_port, null)
   region                       = try(each.value.region, var.region)
 
-  tags = merge(local.tags, var.security_group_tags, try(each.value.tags, {}))
+  tags = merge(var.tags, var.security_group_tags, try(each.value.tags, {}))
 }
