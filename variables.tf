@@ -30,12 +30,15 @@ variable "advanced_security_options" {
 }
 
 variable "aiml_options" {
-  description = "Configuration block for Natural Language Query Generation and s3 Vectors"
+  description = "Configuration block for AI/ML options including Natural Language Query Generation, S3 Vectors, and Serverless Vector Acceleration"
   type = object({
     natural_language_query_generation_options = optional(object({
       desired_state = optional(string)
     }))
     s3_vectors_engine = optional(object({
+      enabled = optional(bool)
+    }))
+    serverless_vector_acceleration = optional(object({
       enabled = optional(bool)
     }))
   })

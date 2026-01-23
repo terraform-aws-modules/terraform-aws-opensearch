@@ -83,6 +83,14 @@ resource "aws_opensearch_domain" "this" {
           enabled = s3_vectors_engine.value.enabled
         }
       }
+
+      dynamic "serverless_vector_acceleration" {
+        for_each = aiml_options.value.serverless_vector_acceleration != null ? [aiml_options.value.serverless_vector_acceleration] : []
+
+        content {
+          enabled = serverless_vector_acceleration.value.enabled
+        }
+      }
     }
   }
 
