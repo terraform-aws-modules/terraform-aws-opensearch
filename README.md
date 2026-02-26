@@ -27,6 +27,14 @@ module "opensearch" {
       master_user_name     = "example"
       master_user_password = "Barbarbarbar1!"
     }
+
+    # Optional: JWT authentication and authorization
+    # jwt_options = {
+    #   enabled     = true
+    #   public_key  = file("path/to/publickey.pem")
+    #   roles_key   = "roles"    # Optional, defaults to "roles"
+    #   subject_key = "sub"      # Optional, defaults to "sub"
+    # }
   }
 
   auto_tune_options = {
@@ -144,13 +152,13 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.34 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.34 |
 
 ## Modules
 
