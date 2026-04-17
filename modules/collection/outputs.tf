@@ -1,4 +1,23 @@
 ################################################################################
+# Collection Group
+################################################################################
+
+output "collection_group_arn" {
+  description = "Amazon Resource Name (ARN) of the collection group"
+  value       = try(aws_opensearchserverless_collection_group.main[0].arn, null)
+}
+
+output "collection_group_created_date" {
+  description = "Date the collection group was created"
+  value       = try(aws_opensearchserverless_collection_group.main[0].created_date, null)
+}
+
+output "collection_group_id" {
+  description = "Unique identifier for the collection group"
+  value       = try(aws_opensearchserverless_collection_group.main[0].id, null)
+}
+
+################################################################################
 # Collection
 ################################################################################
 

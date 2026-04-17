@@ -3,22 +3,44 @@ data "aws_caller_identity" "current" {
 }
 
 ################################################################################
+# Collection Group
+################################################################################
+
+resource "aws_opensearchserverless_collection_group" "main" {
+  count = var.create && var.create_collection_group ? 1 : 0
+
+  description      = var.collection_group_description
+  name             = var.collection_group_name
+  region           = var.region
+  standby_replicas = var.collection_group_standby_replicas
+  tags             = var.tags
+
+  capacity_limits {
+    min_indexing_capacity_in_ocu = var.collection_group_capacity_limits_min_indexing_capacity_in_ocu
+    max_indexing_capacity_in_ocu = var.collection_group_capacity_limits_max_indexing_capacity_in_ocu
+    min_search_capacity_in_ocu   = var.collection_group_capacity_limits_min_search_capacity_in_ocu
+    max_search_capacity_in_ocu   = var.collection_group_capacity_limits_max_search_capacity_in_ocu
+  }
+}
+
+################################################################################
 # Collection
 ################################################################################
 
 resource "aws_opensearchserverless_collection" "this" {
   count = var.create ? 1 : 0
 
-  description      = var.description
-  name             = var.name
-  region           = var.region
-  type             = var.type
-  standby_replicas = var.standby_replicas
+  collection_group_name = try(aws_opensearchserverless_collection_group.main[0].name, null)
+  description           = var.description
+  name                  = var.name
+  region                = var.region
+  type                  = var.type
+  standby_replicas      = var.standby_replicas
 
   tags = var.tags
 
   timeouts {
-    create = try(var.timeouts.delete, null)
+    create = try(var.timeouts.create, null)
     delete = try(var.timeouts.delete, null)
   }
 

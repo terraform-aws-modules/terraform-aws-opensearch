@@ -17,6 +17,63 @@ variable "tags" {
 }
 
 ################################################################################
+# Collection Group
+################################################################################
+
+variable "collection_group_capacity_limits_max_indexing_capacity_in_ocu" {
+  description = "Maximum indexing capacity in OCU for the collection group"
+  type        = number
+  default     = 1
+}
+
+variable "collection_group_capacity_limits_max_search_capacity_in_ocu" {
+  description = "Maximum search capacity in OCU for the collection group"
+  type        = number
+  default     = 96
+}
+
+variable "collection_group_capacity_limits_min_indexing_capacity_in_ocu" {
+  description = "Minimum indexing capacity in OCU for the collection group"
+  type        = number
+  default     = 1
+}
+
+variable "collection_group_capacity_limits_min_search_capacity_in_ocu" {
+  description = "Minimum search capacity in OCU for the collection group"
+  type        = number
+  default     = 96
+}
+
+variable "collection_group_description" {
+  description = "Description of the collection group"
+  type        = string
+  default     = ""
+}
+
+variable "collection_group_name" {
+  description = "Name of the collection group"
+  type        = string
+  default     = ""
+}
+
+variable "collection_group_standby_replicas" {
+  description = "Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED`"
+  type        = string
+  default     = "ENABLED"
+
+  validation {
+    condition     = var.collection_group_standby_replicas == null || contains(["ENABLED", "DISABLED"], var.collection_group_standby_replicas)
+    error_message = "Valid values for collection_group_standby_replicas are `ENABLED` and `DISABLED`."
+  }
+}
+
+variable "create_collection_group" {
+  description = "Determines if a collection group is created"
+  type        = bool
+  default     = false
+}
+
+################################################################################
 # Collection
 ################################################################################
 
