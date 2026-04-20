@@ -32,6 +32,7 @@ module "wrapper" {
   create_cloudwatch_log_resource_policy = try(each.value.create_cloudwatch_log_resource_policy, var.defaults.create_cloudwatch_log_resource_policy, true)
   create_saml_options                   = try(each.value.create_saml_options, var.defaults.create_saml_options, false)
   create_security_group                 = try(each.value.create_security_group, var.defaults.create_security_group, true)
+  deployment_strategy_options           = try(each.value.deployment_strategy_options, var.defaults.deployment_strategy_options, null)
   domain_endpoint_options = try(each.value.domain_endpoint_options, var.defaults.domain_endpoint_options, {
     enforce_https       = true
     tls_security_policy = "Policy-Min-TLS-1-2-2019-07"

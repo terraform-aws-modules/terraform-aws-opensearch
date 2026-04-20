@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.6.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.5.0...v2.6.0) (2026-04-19)
+
+### Features
+
+* Support `deployment_strategy_options` ([#56](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/56)) ([baa8a72](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/baa8a7227719160d5dbbd618f67a7b6d673c9506))
+
 ## [2.5.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.4.0...v2.5.0) (2026-01-08)
 
 ### Features
