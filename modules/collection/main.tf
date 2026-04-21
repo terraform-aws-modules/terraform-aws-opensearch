@@ -6,7 +6,7 @@ data "aws_caller_identity" "current" {
 # Collection Group
 ################################################################################
 
-resource "aws_opensearchserverless_collection_group" "main" {
+resource "aws_opensearchserverless_collection_group" "this" {
   count = var.create && var.create_collection_group ? 1 : 0
 
   region = var.region
@@ -38,7 +38,7 @@ resource "aws_opensearchserverless_collection" "this" {
 
   region = var.region
 
-  collection_group_name = var.create_collection_group ? aws_opensearchserverless_collection_group.main[0].name : var.collection_group_name
+  collection_group_name = var.create_collection_group ? aws_opensearchserverless_collection_group.this[0].name : var.collection_group_name
   description           = var.description
   name                  = var.name
   type                  = var.type

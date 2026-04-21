@@ -60,7 +60,7 @@ No modules.
 | ---- | ---- |
 | [aws_opensearchserverless_access_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_access_policy) | resource |
 | [aws_opensearchserverless_collection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection) | resource |
-| [aws_opensearchserverless_collection_group.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection_group) | resource |
+| [aws_opensearchserverless_collection_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection_group) | resource |
 | [aws_opensearchserverless_lifecycle_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_lifecycle_policy) | resource |
 | [aws_opensearchserverless_security_policy.encryption](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_security_policy) | resource |
 | [aws_opensearchserverless_security_policy.network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_security_policy) | resource |
@@ -112,7 +112,6 @@ No modules.
 | <a name="output_access_policy_version"></a> [access\_policy\_version](#output\_access\_policy\_version) | The version of the access policy |
 | <a name="output_arn"></a> [arn](#output\_arn) | Amazon Resource Name (ARN) of the collection |
 | <a name="output_collection_group_arn"></a> [collection\_group\_arn](#output\_collection\_group\_arn) | Amazon Resource Name (ARN) of the collection group |
-| <a name="output_collection_group_created_date"></a> [collection\_group\_created\_date](#output\_collection\_group\_created\_date) | Date the collection group was created |
 | <a name="output_collection_group_id"></a> [collection\_group\_id](#output\_collection\_group\_id) | Unique identifier for the collection group |
 | <a name="output_dashboard_endpoint"></a> [dashboard\_endpoint](#output\_dashboard\_endpoint) | Collection-specific endpoint used to access OpenSearch Dashboards |
 | <a name="output_encryption_policy"></a> [encryption\_policy](#output\_encryption\_policy) | The JSON policy document of the encryption policy |

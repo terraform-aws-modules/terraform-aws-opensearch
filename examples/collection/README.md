@@ -54,7 +54,6 @@ No inputs.
 | Name | Description |
 | ---- | ----------- |
 | <a name="output_opensearch_collection_group_arn"></a> [opensearch\_collection\_group\_arn](#output\_opensearch\_collection\_group\_arn) | Amazon Resource Name (ARN) of the collection group |
-| <a name="output_opensearch_collection_group_created_date"></a> [opensearch\_collection\_group\_created\_date](#output\_opensearch\_collection\_group\_created\_date) | Date the collection group was created |
 | <a name="output_opensearch_collection_group_id"></a> [opensearch\_collection\_group\_id](#output\_opensearch\_collection\_group\_id) | Unique identifier for the collection group |
 | <a name="output_opensearch_collection_private_access_policy"></a> [opensearch\_collection\_private\_access\_policy](#output\_opensearch\_collection\_private\_access\_policy) | The JSON policy document of the access policy |
 | <a name="output_opensearch_collection_private_access_policy_version"></a> [opensearch\_collection\_private\_access\_policy\_version](#output\_opensearch\_collection\_private\_access\_policy\_version) | The version of the access policy |

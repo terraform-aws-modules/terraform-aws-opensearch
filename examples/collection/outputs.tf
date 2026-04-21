@@ -86,11 +86,6 @@ output "opensearch_collection_group_id" {
   value       = module.opensearch_collection_group.collection_group_id
 }
 
-output "opensearch_collection_group_created_date" {
-  description = "Date the collection group was created"
-  value       = module.opensearch_collection_group.collection_group_created_date
-}
-
 ################################################################################
 # OpenSearch Private Collection
 ################################################################################
