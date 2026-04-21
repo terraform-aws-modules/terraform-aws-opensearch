@@ -149,7 +149,7 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
 
 ## Modules

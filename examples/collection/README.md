@@ -25,7 +25,7 @@ Note that this example may create resources which will incur monetary charges on
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
 
 ## Modules
