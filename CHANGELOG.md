@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.7.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.6.0...v2.7.0) (2026-04-21)
+
+### Features
+
+* Add support for OpenSearch Serverless collection groups ([#55](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/55)) ([e23f1d8](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/e23f1d8684b2d774cf70f5a56c686bee1b69a595))
+
 ## [2.6.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.5.0...v2.6.0) (2026-04-19)
 
 ### Features
