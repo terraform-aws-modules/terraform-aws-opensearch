@@ -55,6 +55,23 @@ module "opensearch_collection_private" {
   tags = local.tags
 }
 
+module "opensearch_collection_group" {
+  source = "../../modules/collection"
+
+  name        = "${local.name}-group"
+  description = "Example OpenSearch Serverless collection attached to a collection group"
+  type        = "SEARCH"
+
+  create_collection_group           = true
+  collection_group_name             = "${local.name}-group"
+  collection_group_standby_replicas = "DISABLED"
+
+  create_access_policy  = true
+  create_network_policy = true
+
+  tags = local.tags
+}
+
 module "opensearch_collection_disabled" {
   source = "../../modules/collection"
 

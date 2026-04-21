@@ -17,6 +17,45 @@ variable "tags" {
 }
 
 ################################################################################
+# Collection Group
+################################################################################
+
+variable "create_collection_group" {
+  description = "Determines if a collection group is created"
+  type        = bool
+  default     = false
+}
+
+variable "collection_group_name" {
+  description = "Name of the collection group"
+  type        = string
+  default     = ""
+}
+
+variable "collection_group_description" {
+  description = "Description of the collection group"
+  type        = string
+  default     = null
+}
+
+variable "collection_group_standby_replicas" {
+  description = "Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED`"
+  type        = string
+  default     = "ENABLED"
+}
+
+variable "collection_group_capacity_limits" {
+  description = "Configuration block for the collection group's indexing and search capacity limits"
+  type = object({
+    min_indexing_capacity_in_ocu = optional(number)
+    max_indexing_capacity_in_ocu = optional(number)
+    min_search_capacity_in_ocu   = optional(number)
+    max_search_capacity_in_ocu   = optional(number)
+  })
+  default = null
+}
+
+################################################################################
 # Collection
 ################################################################################
 
@@ -46,8 +85,11 @@ variable "standby_replicas" {
 
 variable "timeouts" {
   description = "Create and delete timeout configurations for the collection"
-  type        = map(string)
-  default     = {}
+  type = object({
+    create = optional(string)
+    delete = optional(string)
+  })
+  default = null
 }
 
 ################################################################################
