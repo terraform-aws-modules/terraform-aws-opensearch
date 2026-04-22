@@ -65,6 +65,14 @@ variable "cognito_options" {
   default     = {}
 }
 
+variable "deployment_strategy_options" {
+  description = "Configuration block for deployment strategy options"
+  type = object({
+    deployment_strategy = string
+  })
+  default = null
+}
+
 variable "domain_endpoint_options" {
   description = "Configuration block for domain endpoint HTTP(S) related options"
   type        = any

@@ -40,15 +40,15 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.28 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.41 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.28 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
 
 ## Modules
 
@@ -57,9 +57,10 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_opensearchserverless_access_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_access_policy) | resource |
 | [aws_opensearchserverless_collection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection) | resource |
+| [aws_opensearchserverless_collection_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection_group) | resource |
 | [aws_opensearchserverless_lifecycle_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_lifecycle_policy) | resource |
 | [aws_opensearchserverless_security_policy.encryption](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_security_policy) | resource |
 | [aws_opensearchserverless_security_policy.network](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_security_policy) | resource |
@@ -68,15 +69,20 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_access_policy"></a> [access\_policy](#input\_access\_policy) | Access policy to apply to the collection | `any` | `{}` | no |
 | <a name="input_access_policy_collection_permissions"></a> [access\_policy\_collection\_permissions](#input\_access\_policy\_collection\_permissions) | Access policy permissions for the collection | `list(string)` | <pre>[<br/>  "aoss:*"<br/>]</pre> | no |
 | <a name="input_access_policy_description"></a> [access\_policy\_description](#input\_access\_policy\_description) | Description of the access policy | `string` | `null` | no |
 | <a name="input_access_policy_index_permissions"></a> [access\_policy\_index\_permissions](#input\_access\_policy\_index\_permissions) | Access policy permissions for the collection index | `list(string)` | <pre>[<br/>  "aoss:*"<br/>]</pre> | no |
 | <a name="input_access_policy_name"></a> [access\_policy\_name](#input\_access\_policy\_name) | Name of the access policy | `string` | `null` | no |
 | <a name="input_access_policy_principals"></a> [access\_policy\_principals](#input\_access\_policy\_principals) | Access policy principals | `list(string)` | `[]` | no |
+| <a name="input_collection_group_capacity_limits"></a> [collection\_group\_capacity\_limits](#input\_collection\_group\_capacity\_limits) | Configuration block for the collection group's indexing and search capacity limits | <pre>object({<br/>    min_indexing_capacity_in_ocu = optional(number)<br/>    max_indexing_capacity_in_ocu = optional(number)<br/>    min_search_capacity_in_ocu   = optional(number)<br/>    max_search_capacity_in_ocu   = optional(number)<br/>  })</pre> | `null` | no |
+| <a name="input_collection_group_description"></a> [collection\_group\_description](#input\_collection\_group\_description) | Description of the collection group | `string` | `null` | no |
+| <a name="input_collection_group_name"></a> [collection\_group\_name](#input\_collection\_group\_name) | Name of the collection group | `string` | `""` | no |
+| <a name="input_collection_group_standby_replicas"></a> [collection\_group\_standby\_replicas](#input\_collection\_group\_standby\_replicas) | Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED` | `string` | `"ENABLED"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_access_policy"></a> [create\_access\_policy](#input\_create\_access\_policy) | Determines whether an access policy will be created | `bool` | `false` | no |
+| <a name="input_create_collection_group"></a> [create\_collection\_group](#input\_create\_collection\_group) | Determines if a collection group is created | `bool` | `false` | no |
 | <a name="input_create_encryption_policy"></a> [create\_encryption\_policy](#input\_create\_encryption\_policy) | Determines whether an encryption policy will be created | `bool` | `true` | no |
 | <a name="input_create_lifecycle_policy"></a> [create\_lifecycle\_policy](#input\_create\_lifecycle\_policy) | Determines whether an lifecycle policy will be created | `bool` | `false` | no |
 | <a name="input_create_network_policy"></a> [create\_network\_policy](#input\_create\_network\_policy) | Determines whether an network policy will be created | `bool` | `false` | no |
@@ -95,16 +101,18 @@ No modules.
 | <a name="input_region"></a> [region](#input\_region) | Region where this resource will be managed. Defaults to the Region set in the provider configuration | `string` | `null` | no |
 | <a name="input_standby_replicas"></a> [standby\_replicas](#input\_standby\_replicas) | Indicates whether standby replicas should be used for a collection. One of ENABLED or DISABLED. Defaults to ENABLED. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
-| <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the collection | `map(string)` | `{}` | no |
+| <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the collection | <pre>object({<br/>    create = optional(string)<br/>    delete = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_type"></a> [type](#input\_type) | Type of collection. One of `SEARCH`, `TIMESERIES`, or `VECTORSEARCH`. Defaults to `TIMESERIES` | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_access_policy"></a> [access\_policy](#output\_access\_policy) | The JSON policy document of the access policy |
 | <a name="output_access_policy_version"></a> [access\_policy\_version](#output\_access\_policy\_version) | The version of the access policy |
 | <a name="output_arn"></a> [arn](#output\_arn) | Amazon Resource Name (ARN) of the collection |
+| <a name="output_collection_group_arn"></a> [collection\_group\_arn](#output\_collection\_group\_arn) | Amazon Resource Name (ARN) of the collection group |
+| <a name="output_collection_group_id"></a> [collection\_group\_id](#output\_collection\_group\_id) | Unique identifier for the collection group |
 | <a name="output_dashboard_endpoint"></a> [dashboard\_endpoint](#output\_dashboard\_endpoint) | Collection-specific endpoint used to access OpenSearch Dashboards |
 | <a name="output_encryption_policy"></a> [encryption\_policy](#output\_encryption\_policy) | The JSON policy document of the encryption policy |
 | <a name="output_encryption_policy_version"></a> [encryption\_policy\_version](#output\_encryption\_policy\_version) | The version of the encryption policy |

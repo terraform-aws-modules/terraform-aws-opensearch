@@ -73,6 +73,20 @@ output "opensearch_collection_public_lifecycle_policy" {
 }
 
 ################################################################################
+# OpenSearch Collection Group
+################################################################################
+
+output "opensearch_collection_group_arn" {
+  description = "Amazon Resource Name (ARN) of the collection group"
+  value       = module.opensearch_collection_group.collection_group_arn
+}
+
+output "opensearch_collection_group_id" {
+  description = "Unique identifier for the collection group"
+  value       = module.opensearch_collection_group.collection_group_id
+}
+
+################################################################################
 # OpenSearch Private Collection
 ################################################################################
 

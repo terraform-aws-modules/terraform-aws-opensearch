@@ -180,6 +180,14 @@ resource "aws_opensearch_domain" "this" {
     }
   }
 
+  dynamic "deployment_strategy_options" {
+    for_each = var.deployment_strategy_options != null ? [var.deployment_strategy_options] : []
+
+    content {
+      deployment_strategy = deployment_strategy_options.value.deployment_strategy
+    }
+  }
+
   dynamic "domain_endpoint_options" {
     for_each = length(var.domain_endpoint_options) > 0 ? [var.domain_endpoint_options] : []
 
