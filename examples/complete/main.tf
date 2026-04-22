@@ -200,7 +200,8 @@ module "vpc" {
 }
 
 module "kms" {
-  source = "terraform-aws-modules/kms/aws"
+  source  = "terraform-aws-modules/kms/aws"
+  version = "~> 4.0"
 
   description = "OpenSearch JWT authentication"
 

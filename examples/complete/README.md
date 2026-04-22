@@ -38,7 +38,7 @@ Note that this example may create resources which will incur monetary charges on
 
 | Name | Source | Version |
 | ---- | ------ | ------- |
-| <a name="module_kms"></a> [kms](#module\_kms) | terraform-aws-modules/kms/aws | n/a |
+| <a name="module_kms"></a> [kms](#module\_kms) | terraform-aws-modules/kms/aws | ~> 4.0 |
 | <a name="module_opensearch"></a> [opensearch](#module\_opensearch) | ../.. | n/a |
 | <a name="module_opensearch_disabled"></a> [opensearch\_disabled](#module\_opensearch\_disabled) | ../.. | n/a |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.0 |
