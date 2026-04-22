@@ -41,6 +41,17 @@ resource "aws_opensearch_domain" "this" {
       enabled                        = try(advanced_security_options.value.enabled, true)
       internal_user_database_enabled = try(advanced_security_options.value.internal_user_database_enabled, null)
 
+      dynamic "jwt_options" {
+        for_each = try([advanced_security_options.value.jwt_options], [])
+
+        content {
+          enabled     = try(jwt_options.value.enabled, null)
+          public_key  = try(jwt_options.value.public_key, null)
+          roles_key   = try(jwt_options.value.roles_key, null)
+          subject_key = try(jwt_options.value.subject_key, null)
+        }
+      }
+
       dynamic "master_user_options" {
         for_each = try([advanced_security_options.value.master_user_options], [{}])
 

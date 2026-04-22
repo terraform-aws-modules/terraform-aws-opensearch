@@ -27,6 +27,14 @@ module "opensearch" {
       master_user_name     = "example"
       master_user_password = "Barbarbarbar1!"
     }
+
+    # Optional: JWT authentication and authorization
+    # jwt_options = {
+    #   enabled     = true
+    #   public_key  = file("path/to/publickey.pem")
+    #   roles_key   = "roles"    # Optional, defaults to "roles"
+    #   subject_key = "sub"      # Optional, defaults to "sub"
+    # }
   }
 
   auto_tune_options = {

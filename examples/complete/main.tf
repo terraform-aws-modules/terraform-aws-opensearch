@@ -31,13 +31,20 @@ module "opensearch" {
   }
 
   advanced_security_options = {
-    enabled                        = false
-    anonymous_auth_enabled         = true
+    enabled                        = true
+    anonymous_auth_enabled         = false
     internal_user_database_enabled = true
 
     master_user_options = {
       master_user_name     = "example"
       master_user_password = "Barbarbarbar1!"
+    }
+
+    jwt_options = {
+      enabled     = true
+      public_key  = data.aws_kms_public_key.jwt.public_key_pem
+      roles_key   = "roles"
+      subject_key = "sub"
     }
   }
 
@@ -190,4 +197,20 @@ module "vpc" {
   private_subnet_ipv6_prefixes = [3, 4, 5]
 
   tags = local.tags
+}
+
+module "kms" {
+  source  = "terraform-aws-modules/kms/aws"
+  version = "~> 4.0"
+
+  description = "OpenSearch JWT authentication"
+
+  customer_master_key_spec = "RSA_4096"
+  key_usage                = "SIGN_VERIFY"
+
+  tags = local.tags
+}
+
+data "aws_kms_public_key" "jwt" {
+  key_id = module.kms.key_id
 }
