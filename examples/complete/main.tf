@@ -40,12 +40,11 @@ module "opensearch" {
       master_user_password = "Barbarbarbar1!"
     }
 
-    # JWT authentication and authorization (requires OpenSearch 2.11+)
     jwt_options = {
       enabled     = true
       public_key  = data.aws_kms_public_key.jwt.public_key_pem
-      roles_key   = "roles" # Optional, defaults to "roles"
-      subject_key = "sub"   # Optional, defaults to "sub"
+      roles_key   = "roles"
+      subject_key = "sub"
     }
   }
 
@@ -181,20 +180,6 @@ module "opensearch_disabled" {
 # Supporting Resources
 ################################################################################
 
-# Create KMS asymmetric key for JWT authentication
-resource "aws_kms_key" "jwt" {
-  description              = "RSA key pair for OpenSearch JWT authentication"
-  customer_master_key_spec = "RSA_4096"
-  key_usage                = "SIGN_VERIFY"
-
-  tags = local.tags
-}
-
-# Get the public key from KMS
-data "aws_kms_public_key" "jwt" {
-  key_id = aws_kms_key.jwt.id
-}
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 6.0"
@@ -212,4 +197,19 @@ module "vpc" {
   private_subnet_ipv6_prefixes = [3, 4, 5]
 
   tags = local.tags
+}
+
+module "kms" {
+  source = "terraform-aws-modules/kms/aws"
+
+  description = "OpenSearch JWT authentication"
+
+  customer_master_key_spec = "RSA_4096"
+  key_usage                = "SIGN_VERIFY"
+
+  tags = local.tags
+}
+
+data "aws_kms_public_key" "jwt" {
+  key_id = module.kms.key_id
 }
