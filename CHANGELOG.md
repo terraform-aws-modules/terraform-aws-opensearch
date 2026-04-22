@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.9.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.8.0...v2.9.0) (2026-04-22)
+
+### Features
+
+* Add option for GPU acceleration ([#53](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/53)) ([eaf82bb](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/eaf82bb45d97e496129a33a8a4a65eb8f22af940))
+
 ## [2.8.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.7.0...v2.8.0) (2026-04-22)
 
 ### Features
