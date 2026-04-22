@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.8.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.7.0...v2.8.0) (2026-04-22)
+
+### Features
+
+* Add support for jwt_options in advanced_security_options ([#54](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/54)) ([a3af647](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/a3af647c4ac11cf0a486cc165119d0c3b626e0f4))
+
 ## [2.7.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.6.0...v2.7.0) (2026-04-21)
 
 ### Features
