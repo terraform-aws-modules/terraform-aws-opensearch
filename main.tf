@@ -66,8 +66,8 @@ resource "aws_opensearch_domain" "this" {
 
   dynamic "aiml_options" {
     for_each = var.aiml_options != null ? [var.aiml_options] : []
-    content {
 
+    content {
       dynamic "natural_language_query_generation_options" {
         for_each = aiml_options.value.natural_language_query_generation_options != null ? [aiml_options.value.natural_language_query_generation_options] : []
 
@@ -81,6 +81,14 @@ resource "aws_opensearch_domain" "this" {
 
         content {
           enabled = s3_vectors_engine.value.enabled
+        }
+      }
+
+      dynamic "serverless_vector_acceleration" {
+        for_each = aiml_options.value.serverless_vector_acceleration != null ? [aiml_options.value.serverless_vector_acceleration] : []
+
+        content {
+          enabled = serverless_vector_acceleration.value.enabled
         }
       }
     }
