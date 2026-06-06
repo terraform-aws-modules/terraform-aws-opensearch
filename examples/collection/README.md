@@ -18,20 +18,20 @@ Note that this example may create resources which will incur monetary charges on
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.41 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.49 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.49 |
 
 ## Modules
 
 | Name | Source | Version |
-| ---- | ------ | ------- |
+|------|--------|---------|
 | <a name="module_opensearch_collection_disabled"></a> [opensearch\_collection\_disabled](#module\_opensearch\_collection\_disabled) | ../../modules/collection | n/a |
 | <a name="module_opensearch_collection_group"></a> [opensearch\_collection\_group](#module\_opensearch\_collection\_group) | ../../modules/collection | n/a |
 | <a name="module_opensearch_collection_private"></a> [opensearch\_collection\_private](#module\_opensearch\_collection\_private) | ../../modules/collection | n/a |
@@ -41,7 +41,7 @@ Note that this example may create resources which will incur monetary charges on
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws_opensearchserverless_vpc_endpoint.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_vpc_endpoint) | resource |
 | [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones) | data source |
 
@@ -52,7 +52,7 @@ No inputs.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_opensearch_collection_group_arn"></a> [opensearch\_collection\_group\_arn](#output\_opensearch\_collection\_group\_arn) | Amazon Resource Name (ARN) of the collection group |
 | <a name="output_opensearch_collection_group_id"></a> [opensearch\_collection\_group\_id](#output\_opensearch\_collection\_group\_id) | Unique identifier for the collection group |
 | <a name="output_opensearch_collection_private_access_policy"></a> [opensearch\_collection\_private\_access\_policy](#output\_opensearch\_collection\_private\_access\_policy) | The JSON policy document of the access policy |

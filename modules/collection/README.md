@@ -40,15 +40,15 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.41 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.49 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.49 |
 
 ## Modules
 
@@ -57,7 +57,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws_opensearchserverless_access_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_access_policy) | resource |
 | [aws_opensearchserverless_collection.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection) | resource |
 | [aws_opensearchserverless_collection_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/opensearchserverless_collection_group) | resource |
@@ -69,7 +69,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-| ---- | ----------- | ---- | ------- | :------: |
+|------|-------------|------|---------|:--------:|
 | <a name="input_access_policy"></a> [access\_policy](#input\_access\_policy) | Access policy to apply to the collection | `any` | `{}` | no |
 | <a name="input_access_policy_collection_permissions"></a> [access\_policy\_collection\_permissions](#input\_access\_policy\_collection\_permissions) | Access policy permissions for the collection | `list(string)` | <pre>[<br/>  "aoss:*"<br/>]</pre> | no |
 | <a name="input_access_policy_description"></a> [access\_policy\_description](#input\_access\_policy\_description) | Description of the access policy | `string` | `null` | no |
@@ -107,7 +107,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-| ---- | ----------- |
+|------|-------------|
 | <a name="output_access_policy"></a> [access\_policy](#output\_access\_policy) | The JSON policy document of the access policy |
 | <a name="output_access_policy_version"></a> [access\_policy\_version](#output\_access\_policy\_version) | The version of the access policy |
 | <a name="output_arn"></a> [arn](#output\_arn) | Amazon Resource Name (ARN) of the collection |

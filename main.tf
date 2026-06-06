@@ -46,6 +46,7 @@ resource "aws_opensearch_domain" "this" {
 
         content {
           enabled     = try(jwt_options.value.enabled, null)
+          jwks_url    = try(jwt_options.value.jwks_url, null)
           public_key  = try(jwt_options.value.public_key, null)
           roles_key   = try(jwt_options.value.roles_key, null)
           subject_key = try(jwt_options.value.subject_key, null)
