@@ -64,6 +64,7 @@ module "opensearch_collection_group" {
 
   create_collection_group           = true
   collection_group_name             = "${local.name}-group"
+  collection_group_generation       = "CLASSIC"
   collection_group_standby_replicas = "DISABLED"
 
   create_access_policy  = true

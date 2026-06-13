@@ -13,6 +13,7 @@ resource "aws_opensearchserverless_collection_group" "this" {
 
   name             = var.collection_group_name
   description      = var.collection_group_description
+  generation       = var.collection_group_generation
   standby_replicas = var.collection_group_standby_replicas
 
   dynamic "capacity_limits" {
