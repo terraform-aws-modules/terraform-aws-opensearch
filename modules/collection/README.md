@@ -42,13 +42,13 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.41 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.49 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.49 |
 
 ## Modules
 
@@ -78,8 +78,9 @@ No modules.
 | <a name="input_access_policy_principals"></a> [access\_policy\_principals](#input\_access\_policy\_principals) | Access policy principals | `list(string)` | `[]` | no |
 | <a name="input_collection_group_capacity_limits"></a> [collection\_group\_capacity\_limits](#input\_collection\_group\_capacity\_limits) | Configuration block for the collection group's indexing and search capacity limits | <pre>object({<br/>    min_indexing_capacity_in_ocu = optional(number)<br/>    max_indexing_capacity_in_ocu = optional(number)<br/>    min_search_capacity_in_ocu   = optional(number)<br/>    max_search_capacity_in_ocu   = optional(number)<br/>  })</pre> | `null` | no |
 | <a name="input_collection_group_description"></a> [collection\_group\_description](#input\_collection\_group\_description) | Description of the collection group | `string` | `null` | no |
-| <a name="input_collection_group_name"></a> [collection\_group\_name](#input\_collection\_group\_name) | Name of the collection group | `string` | `""` | no |
-| <a name="input_collection_group_standby_replicas"></a> [collection\_group\_standby\_replicas](#input\_collection\_group\_standby\_replicas) | Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED` | `string` | `"ENABLED"` | no |
+| <a name="input_collection_group_generation"></a> [collection\_group\_generation](#input\_collection\_group\_generation) | Generation of the collection group. Valid values are `CLASSIC` and `NEXTGEN`. When `NEXTGEN` is specified, `standby_replicas` must be `ENABLED` | `string` | `null` | no |
+| <a name="input_collection_group_name"></a> [collection\_group\_name](#input\_collection\_group\_name) | Name of the collection group | `string` | `null` | no |
+| <a name="input_collection_group_standby_replicas"></a> [collection\_group\_standby\_replicas](#input\_collection\_group\_standby\_replicas) | Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED`. If `collection_group_generation` is set to `NEXTGEN`, this argument must be set to `ENABLED` | `string` | `"ENABLED"` | no |
 | <a name="input_create"></a> [create](#input\_create) | Determines whether resources will be created (affects all resources) | `bool` | `true` | no |
 | <a name="input_create_access_policy"></a> [create\_access\_policy](#input\_create\_access\_policy) | Determines whether an access policy will be created | `bool` | `false` | no |
 | <a name="input_create_collection_group"></a> [create\_collection\_group](#input\_create\_collection\_group) | Determines if a collection group is created | `bool` | `false` | no |

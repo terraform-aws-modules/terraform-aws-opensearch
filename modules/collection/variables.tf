@@ -29,7 +29,7 @@ variable "create_collection_group" {
 variable "collection_group_name" {
   description = "Name of the collection group"
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "collection_group_description" {
@@ -39,7 +39,7 @@ variable "collection_group_description" {
 }
 
 variable "collection_group_standby_replicas" {
-  description = "Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED`"
+  description = "Indicates whether standby replicas should be used for the collection group. Valid values are `ENABLED` and `DISABLED`. If `collection_group_generation` is set to `NEXTGEN`, this argument must be set to `ENABLED`"
   type        = string
   default     = "ENABLED"
 }
@@ -53,6 +53,12 @@ variable "collection_group_capacity_limits" {
     max_search_capacity_in_ocu   = optional(number)
   })
   default = null
+}
+
+variable "collection_group_generation" {
+  description = "Generation of the collection group. Valid values are `CLASSIC` and `NEXTGEN`. When `NEXTGEN` is specified, `standby_replicas` must be `ENABLED`"
+  type        = string
+  default     = null
 }
 
 ################################################################################

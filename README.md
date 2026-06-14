@@ -31,7 +31,8 @@ module "opensearch" {
     # Optional: JWT authentication and authorization
     # jwt_options = {
     #   enabled     = true
-    #   public_key  = file("path/to/publickey.pem")
+    #   jwks_url    = "https://example.com/.well-known/jwks.json"  # Optional, JWKS URL
+    #   public_key  = file("path/to/publickey.pem")                # Optional, public key
     #   roles_key   = "roles"    # Optional, defaults to "roles"
     #   subject_key = "sub"      # Optional, defaults to "sub"
     # }
@@ -152,13 +153,13 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.41 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.49 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.41 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.49 |
 
 ## Modules
 
