@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.10.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.9.0...v2.10.0) (2026-06-14)
+
+### Features
+
+* Support `jwks_url` and `collection_group_generation` ([#57](https://github.com/terraform-aws-modules/terraform-aws-opensearch/issues/57)) ([43a24d1](https://github.com/terraform-aws-modules/terraform-aws-opensearch/commit/43a24d17de5b7ba023e0c3e85440a3e2da31b657))
+
 ## [2.9.0](https://github.com/terraform-aws-modules/terraform-aws-opensearch/compare/v2.8.0...v2.9.0) (2026-04-22)
 
 ### Features
