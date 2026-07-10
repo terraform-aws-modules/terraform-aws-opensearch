@@ -42,13 +42,13 @@ Examples codified under the [`examples`](https://github.com/terraform-aws-module
 | Name | Version |
 | ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.49 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.51 |
 
 ## Providers
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.49 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.51 |
 
 ## Modules
 
@@ -104,6 +104,7 @@ No modules.
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the collection | <pre>object({<br/>    create = optional(string)<br/>    delete = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_type"></a> [type](#input\_type) | Type of collection. One of `SEARCH`, `TIMESERIES`, or `VECTORSEARCH`. Defaults to `TIMESERIES` | `string` | `null` | no |
+| <a name="input_vector_options"></a> [vector\_options](#input\_vector\_options) | Configuration block for vector search options. Only valid when `type` is `VECTORSEARCH` | <pre>object({<br/>    serverless_vector_acceleration = optional(string, null)<br/>  })</pre> | `null` | no |
 
 ## Outputs
 

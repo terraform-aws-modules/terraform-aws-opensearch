@@ -45,6 +45,14 @@ resource "aws_opensearchserverless_collection" "this" {
   type                  = var.type
   standby_replicas      = var.standby_replicas
 
+  dynamic "vector_options" {
+    for_each = var.vector_options != null ? [var.vector_options] : []
+
+    content {
+      serverless_vector_acceleration = vector_options.value.serverless_vector_acceleration
+    }
+  }
+
   tags = var.tags
 
   dynamic "timeouts" {

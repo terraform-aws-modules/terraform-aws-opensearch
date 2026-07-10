@@ -37,4 +37,5 @@ module "wrapper" {
   tags                                    = try(each.value.tags, var.defaults.tags, {})
   timeouts                                = try(each.value.timeouts, var.defaults.timeouts, null)
   type                                    = try(each.value.type, var.defaults.type, null)
+  vector_options                          = try(each.value.vector_options, var.defaults.vector_options, null)
 }
