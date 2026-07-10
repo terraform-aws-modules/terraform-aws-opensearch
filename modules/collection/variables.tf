@@ -101,7 +101,7 @@ variable "timeouts" {
 variable "vector_options" {
   description = "Configuration block for vector search options. Only valid when `type` is `VECTORSEARCH`"
   type = object({
-    serverless_vector_acceleration = optional(string, null)
+    serverless_vector_acceleration = optional(string)
   })
   default = null
 }

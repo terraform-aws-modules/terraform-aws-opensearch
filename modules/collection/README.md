@@ -104,7 +104,7 @@ No modules.
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of tags to add to all resources | `map(string)` | `{}` | no |
 | <a name="input_timeouts"></a> [timeouts](#input\_timeouts) | Create and delete timeout configurations for the collection | <pre>object({<br/>    create = optional(string)<br/>    delete = optional(string)<br/>  })</pre> | `null` | no |
 | <a name="input_type"></a> [type](#input\_type) | Type of collection. One of `SEARCH`, `TIMESERIES`, or `VECTORSEARCH`. Defaults to `TIMESERIES` | `string` | `null` | no |
-| <a name="input_vector_options"></a> [vector\_options](#input\_vector\_options) | Configuration block for vector search options. Only valid when `type` is `VECTORSEARCH` | <pre>object({<br/>    serverless_vector_acceleration = optional(string, null)<br/>  })</pre> | `null` | no |
+| <a name="input_vector_options"></a> [vector\_options](#input\_vector\_options) | Configuration block for vector search options. Only valid when `type` is `VECTORSEARCH` | <pre>object({<br/>    serverless_vector_acceleration = optional(string)<br/>  })</pre> | `null` | no |
 
 ## Outputs
 
