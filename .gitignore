@@ -8,6 +8,10 @@
 *.tfstate
 *.tfstate.*
 
+# Saved plan files can contain sensitive values
+*.tfplan
+tfplan
+
 # Crash log files
 crash.log
 
